@@ -128,7 +128,7 @@
             <!-- Main Content -->
             <div id="content">
 
-                @include('partials/sidenavbar')
+                @include('../admin/partials/sidenavbar')
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">

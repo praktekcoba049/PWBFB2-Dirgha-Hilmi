@@ -29,13 +29,9 @@ Route::get('/role', function () {
     return view('admin/master/role');
 });
 
-Route::get('/balita', function () {
-    return view('admin/master/balita');
-});
+Route::get('/balita', [DataMasController::class, 'balita']);
 
-Route::get('/user', function () {
-    return view('admin/master/user');
-});
+Route::get('/user', [DataMasController::class, 'user']);
 
 
 //Tambah Data

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Masters\Kecamatan;
 use App\Models\Masters\Kelurahan;
 use App\Models\Masters\Posyandu;
+use App\Models\Masters\Balita;
+use App\Models\Masters\Pengguna;
 use Illuminate\Http\Request;
 
 class DataMasController extends Controller
@@ -29,5 +31,17 @@ class DataMasController extends Controller
         $posyandu = Posyandu::all();
         //return view('master/posyandu');
         return view('admin/master/posyandu', ['posyandu'=>$posyandu]);
+    }
+
+    public function balita(){
+        $balita = Balita::all();
+        //return view('master/posyandu');
+        return view('admin/master/balita', ['balita'=>$balita]);
+    }
+
+    public function user(){
+        $pengguna = Pengguna::all();
+        //return view('master/posyandu');
+        return view('admin/master/user', ['pengguna'=>$pengguna]);
     }
 }

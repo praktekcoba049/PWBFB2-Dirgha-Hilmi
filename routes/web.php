@@ -35,13 +35,11 @@ Route::get('/user', [DataMasController::class, 'user']);
 
 
 //Tambah Data
-Route::get('/tambah-kec', function () {
-    return view('admin/master/tambah/kecamatan');
-});
+Route::get('/tambah-kec', [DataMasController::class, 'tambahKec']);
+Route::post('/kec-store', [DataMasController::class, 'dataKec']);
 
-Route::get('/tambah-kel', function () {
-    return view('admin/master/tambah/kelurahan');
-});
+Route::get('/tambah-kel', [DataMasController::class, 'tambahKel']);
+Route::post('/kel-store', [DataMasController::class, 'dataKel']);
 
 Route::get('/tambah-pos', function () {
     return view('admin/master/tambah/posyandu');
@@ -66,3 +64,7 @@ Route::get('/edit-pos', function () {
 Route::get('/hposyandu', [HistoriController::class, 'hpos']);
 
 Route::get('/hbalita', [HistoriController::class, 'show']);
+
+Route::get('/', function () {
+    return view('LandPage/home');
+});

@@ -21,10 +21,63 @@ class DataMasController extends Controller
         return view('admin/master/kecamatan', ['kecamatan'=>$kecamatan]);
     }
 
+    public function tambahKec(){
+        return view('admin/master/tambah/kecamatan');
+    }
+
+    public function dataKec(Request $request){
+        $kecamatan = new Kecamatan;
+        $kecamatan->ID_KECAMATAN = $request->id_kec;
+        $kecamatan->KECAMATAN = $request->kecamatan;
+        if($kecamatan->save()){
+            echo "
+                <script>
+                    alert('Data berhasil ditambahkan');
+                    document.location.href = '/tambah-kec'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal ditambahkan');
+                    document.location.href = '/tambah-kec'
+                </script>
+            ";
+        }
+    }
+
     public function kelurahan(){
         $kelurahan = Kelurahan::all();
+        $kecamatan = Kecamatan::all();
         //return view('master/kelurahan');
-        return view('admin/master/kelurahan', ['kelurahan'=>$kelurahan]);
+        return view('admin/master/kelurahan', ['kelurahan'=>$kelurahan, 'kecamatan'=>$kecamatan]);
+    }
+
+    public function tambahKel(){
+        $kecamatan = Kecamatan::all();
+        return view('admin/master/tambah/kelurahan', ['kecamatan'=>$kecamatan]);
+    }
+
+    public function dataKel(Request $request){
+        //return $request;
+        $kelurahan = new Kelurahan;
+        $kelurahan->ID_KELURAHAN = $request->id_kel;
+        $kelurahan->KELURAHAN = $request->kelurahan;
+        if($kelurahan->save()){
+            echo "
+                <script>
+                    alert('Data berhasil ditambahkan');
+                    document.location.href = '/tambah-kel'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal ditambahkan');
+                    document.location.href = '/tambah-kel'
+                </script>
+            ";
+        }
     }
 
     public function posyandu(){
@@ -44,4 +97,6 @@ class DataMasController extends Controller
         //return view('master/posyandu');
         return view('admin/master/user', ['pengguna'=>$pengguna]);
     }
+
+
 }

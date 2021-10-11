@@ -25,9 +25,7 @@ Route::get('/kelurahan', [DataMasController::class, 'kelurahan']);
 
 Route::get('/posyandu', [DataMasController::class, 'posyandu']);
 
-Route::get('/role', function () {
-    return view('admin/master/role');
-});
+Route::get('/role', [DataMasController::class, 'role']);
 
 Route::get('/balita', [DataMasController::class, 'balita']);
 
@@ -41,9 +39,11 @@ Route::post('/kec-store', [DataMasController::class, 'dataKec']);
 Route::get('/tambah-kel', [DataMasController::class, 'tambahKel']);
 Route::post('/kel-store', [DataMasController::class, 'dataKel']);
 
-Route::get('/tambah-pos', function () {
-    return view('admin/master/tambah/posyandu');
-});
+Route::get('/tambah-pos', [DataMasController::class, 'tambahPos']);
+Route::post('/pos-store', [DataMasController::class, 'dataPos']);
+
+Route::get('/tambah-role', [DataMasController::class, 'tambahRole']);
+Route::post('/role-store', [DataMasController::class, 'dataRole']);
 
 
 //Edit Data
@@ -58,6 +58,9 @@ Route::get('/edit-kel', function () {
 Route::get('/edit-pos', function () {
     return view('admin/master/edit/posyandu');
 });
+
+// Hapus
+Route::get('/role-hapus/{id}', [DataMasController::class, 'hapusRole']);
 
 
 // Histori

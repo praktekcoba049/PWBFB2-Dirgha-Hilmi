@@ -16,7 +16,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="#" class="btn btn-primary tombol">Tambah Data</a>
+                    <a href="/tambah-role" class="btn btn-primary tombol">Tambah Data</a>
                     <a href="#" class="btn btn-warning tombol" onclick="return confirm('Akan menghapus semua data');">Reset Data</a>
                 </div>
             </div>
@@ -39,14 +39,16 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>
-                                <a href="#" class="btn btn-primary tombol">Ubah</a>
-                                <a href="#" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>
-                            </td>
-                        </tr>
+                        @foreach ($role as $item)
+                            <tr>
+                                <td>{{ $item->ID_ROLE }}</td>
+                                <td>{{ $item->ROLE }}</td>
+                                <td>
+                                    <a href="#" class="btn btn-primary tombol">Ubah</a>
+                                    <a href="/role-hapus/{{ $item->ID_ROLE }}" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

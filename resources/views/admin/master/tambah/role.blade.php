@@ -5,21 +5,21 @@
 <div class="">
     <div class="p-5">
         <div class="text-center">
-            <h1 class="h4 text-gray-900 mb-4">Tambahkan Data Kecamatan!</h1>
+            <h1 class="h4 text-gray-900 mb-4">Tambahkan Role!</h1>
         </div>
-        <form action="/kec-store" method="post">
+        <form action="/role-store" method="post">
             @csrf
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="id_kec"
-                    placeholder="ID Kecamatan" name="id_kec">
+                <input type="text" class="form-control form-control-user text-center" id="id_role"
+                    placeholder="ID Role" name="id_role">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="kecamatan"
-                    placeholder="Nama Kecamatan" name="kecamatan">
+                <input type="text" class="form-control form-control-user text-center" id="role"
+                    placeholder="Role" name="role">
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    <a href="/kecamatan" class="btn btn-danger btn-user btn-block">
+                    <a href="/role" class="btn btn-danger btn-user btn-block">
                         Batal
                     </a>
                 </div>

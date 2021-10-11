@@ -14,6 +14,14 @@
                     placeholder="ID Kelurahan" name="id_kel">
             </div>
             <div class="form-group">
+                <select name="ID_KECAMATAN" class="form-control text-center">
+                    <option value="">- Pilih Kecamatan -</option>
+                    @foreach ($kecamatan as $item)
+                        <option value="{{ $item->ID_KECAMATAN }}">{{ $item->KECAMATAN }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <input type="text" class="form-control form-control-user text-center" id="kelurahan"
                     placeholder="Nama Kelurahan" name="kelurahan">
             </div>
@@ -24,7 +32,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6">
-                    <button name="submit" class="btn btn-success btn-user btn-block">
+                    <button type="submit" name="submit" class="btn btn-success btn-user btn-block">
                         Tambah
                     </button>
                 </div>

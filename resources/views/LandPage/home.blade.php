@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Vesperr Bootstrap Template - Index</title>
+  <title>ASIPS Homepage</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -67,8 +67,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1 data-aos="fade-up">Grow your business with Vesperr</h1>
-          <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
+          <h1 data-aos="fade-up">Selamat Datang di Sistem ASIPS</h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">Kelompok 14 Praktikum Pemrograman Web Berbasis Framework</h2>
           <div data-aos="fade-up" data-aos-delay="800">
             <a href="#about" class="btn-get-started scrollto">Get Started</a>
           </div>
@@ -101,17 +101,7 @@
             <img src="assets_LP/img/clients/client-3.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="200">
           </div>
 
-          <div class="col-lg-2 col-md-4 col-6">
-            <img src="assets_LP/img/clients/client-4.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="300">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6">
-            <img src="assets_LP/img/clients/client-5.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="400">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6">
-            <img src="assets_LP/img/clients/client-6.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="500">
-          </div>
+         
 
         </div>
 

@@ -47,7 +47,7 @@
                                 <td>{{ $item->NAMA_POSYANDU }}</td>
                                 <td>{{ $item->ALAMAT_POSYANDU }}</td>
                                 <td>
-                                    <a href="/edit-kec" class="btn btn-primary tombol">Ubah</a>
+                                    <a href="/edit-pos" class="btn btn-primary tombol">Ubah</a>
                                     <a href="#" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>
                                 </td>
                             </tr>

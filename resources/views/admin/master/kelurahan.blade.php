@@ -44,7 +44,7 @@
                                 <td>{{ $item->ID_KELURAHAN }}</td>
                                 <td>{{ $item->KELURAHAN }}</td>
                                 <td>
-                                    <a href="/edit-kec" class="btn btn-primary tombol">Ubah</a>
+                                    <a href="/edit-kel" class="btn btn-primary tombol">Ubah</a>
                                     <a href="#" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>
                                 </td>
                             </tr>

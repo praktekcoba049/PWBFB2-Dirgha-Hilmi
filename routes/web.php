@@ -59,8 +59,12 @@ Route::get('/edit-pos', function () {
     return view('admin/master/edit/posyandu');
 });
 
+Route::get('/edit-role', function () {
+    return view('admin/master/edit/role');
+});
+
 // Hapus
-Route::get('/role-hapus/{id}', [DataMasController::class, 'hapusRole']);
+Route::get('/role-hapus/{id}', [DataMasController::class, 'hapusRole'],[]);
 
 
 // Histori

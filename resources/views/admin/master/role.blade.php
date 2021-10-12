@@ -44,7 +44,7 @@
                                 <td>{{ $item->ID_ROLE }}</td>
                                 <td>{{ $item->ROLE }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-primary tombol">Ubah</a>
+                                    <a href="/edit-role" class="btn btn-primary tombol">Ubah</a>
                                     <a href="/role-hapus/{{ $item->ID_ROLE }}" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>
                                 </td>
                             </tr>

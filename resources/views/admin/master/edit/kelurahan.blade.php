@@ -1,8 +1,5 @@
-<<<<<<< Updated upstream
 @extends('..admin/layouts/master')
-=======
 @extends('../admin/layouts/master')
->>>>>>> Stashed changes
 
 @section('container')
 

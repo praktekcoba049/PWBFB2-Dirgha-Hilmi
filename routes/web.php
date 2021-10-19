@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HistoriController;
 use App\Http\Controllers\DataMasController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,8 @@ Route::post('/role-store', [DataMasController::class, 'dataRole']);
 Route::get('/edit-kec', function () {
     return view('admin/master/edit/kecamatan');
 });
+Route::post('/edit-kec', [DataMasController::class, 'editKec']);
+Route::post('/kec-edit', [DataMasController::class, 'simpanKec']);
 
 Route::get('/edit-kel', function () {
     return view('admin/master/edit/kelurahan');
@@ -64,7 +67,10 @@ Route::get('/edit-role', function () {
 });
 
 // Hapus
-Route::get('/role-hapus/{id}', [DataMasController::class, 'hapusRole'],[]);
+Route::post('/kec-hapus', [DataMasController::class, 'hapusKec'],[]);
+Route::post('/kel-hapus', [DataMasController::class, 'hapusKel'],[]);
+Route::post('/pos-hapus', [DataMasController::class, 'hapusPos'],[]);
+Route::post('/role-hapus', [DataMasController::class, 'hapusRole'],[]);
 
 
 // Histori
@@ -74,4 +80,27 @@ Route::get('/hbalita', [HistoriController::class, 'show']);
 
 Route::get('/', function () {
     return view('LandPage/home');
+});
+
+// Login
+Route::get('/login', function () {
+    return view('login/login');
+});
+Route::get('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'cekLogin']);
+
+
+// registrasi
+Route::get('/registrasi', [LoginController::class, 'registrasi']);
+Route::post('/registrasi', [LoginController::class, 'dataUser']);
+
+
+
+// Petugas
+Route::get('/petugas', function () {
+    return view('petugas/home');
+});
+
+Route::get('/petugas-balita', function () {
+    return view('petugas/balita');
 });

@@ -7,14 +7,14 @@
         <div class="text-center">
             <h1 class="h4 text-gray-900 mb-4">Edit Data Kecamatan</h1>
         </div>
-        <form class="user">
+        <form action="/kec-edit" method="post">
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="idIn"
-                    placeholder="ID Kecamatan">
+                <input type="text" class="form-control form-control-user text-center" id="idKec"
+                    placeholder="ID Kecamatan" name="idKec" value="{{ $kecamatan->ID_KECAMATAN }}">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="KecamatanIn"
-                    placeholder="Nama Kecamatan">
+                <input type="text" class="form-control form-control-user text-center" id="kecamatan"
+                    placeholder="Nama Kecamatan" name="kecamatan" value="{{ $kecamatan->KECAMATAN }}">
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -23,9 +23,9 @@
                     </a>
                 </div>
                 <div class="col-sm-6">
-                    <a href="#" class="btn btn-success btn-user btn-block">
-                        Simpan
-                    </a>
+                    <button type="submit" name="submit" class="btn btn-success btn-user btn-block">
+                        Tambah
+                    </button>
                 </div>
             </div>
             <hr>

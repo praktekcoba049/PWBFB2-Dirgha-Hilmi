@@ -48,7 +48,13 @@
                                 <td>{{ $item->ALAMAT_POSYANDU }}</td>
                                 <td>
                                     <a href="/edit-pos" class="btn btn-primary tombol">Ubah</a>
-                                    <a href="#" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>
+                                    <form action="/pos-hapus" method="post" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $item->ID_POSYANDU }}">
+                                        <button class="btn btn-danger tombol border-0" onclick="return confirm('Akan menghapus data');">
+                                            Hapus
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

@@ -44,8 +44,20 @@
                                 <td>{{ $item->ID_KECAMATAN }}</td>
                                 <td>{{ $item->KECAMATAN }}</td>
                                 <td>
-                                    <a href="/edit-kec" class="btn btn-primary tombol">Ubah</a>
-                                    <a href="#" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>
+                                    <form action="/edit-kec" method="post" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $item->ID_KECAMATAN }}">
+                                        <button class="btn btn-primary tombol border-0">
+                                            Edit
+                                        </button>
+                                    </form>
+                                    <form action="/kec-hapus" method="post" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $item->ID_KECAMATAN }}">
+                                        <button class="btn btn-danger tombol border-0" onclick="return confirm('Akan menghapus data');">
+                                            Hapus
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

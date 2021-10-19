@@ -26,36 +26,36 @@
     <div class="container mt-5">
         <div class="row justify-content-md-center">
 
-            <div class="card o-hidden border-0 shadow-lg my-5 col-lg-5">
+            <div class="card o-hidden border-0 shadow-lg my-5 col-lg-10">
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Register Now!</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Tambah Data Balita!</h1>
                         </div>
-                        <form action="/registrasi" method="post">
-                            @csrf
+                        <form class="user">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
-                                        placeholder="Username" name="username">
+                                <input type="text" class="form-control form-control-user text-center" id="idIn"
+                                    placeholder="ID Kelurahan">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control form-control-user text-center"
-                                        id="exampleInputPassword" placeholder="Password" name="password1">
+                                <input type="text" class="form-control form-control-user text-center" id="KecamatanIn"
+                                    placeholder="Nama Kelurahan">
                             </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control form-control-user text-center"
-                                        id="exampleRepeatPassword" placeholder="Repeat Password" name="password2">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <a href="/petugas" class="btn btn-danger btn-user btn-block">
+                                        Batal
+                                    </a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a href="#" class="btn btn-success btn-user btn-block">
+                                        Tambah
+                                    </a>
+                                </div>
                             </div>
-                            <br>
-                            <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
-                                Register Account
-                            </button>
+                            <hr>
                         </form>
-                        <hr>
-                        <div class="text-center">
-                            <a class="small" href="/login">Already have an account? Login!</a>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@ class DataMasController extends Controller
             echo "
                 <script>
                     alert('Data berhasil ditambahkan');
-                    document.location.href = '/tambah-kec'
+                    document.location.href = '/kec'
                 </script>
             ";
         } else {
@@ -42,6 +42,54 @@ class DataMasController extends Controller
                 <script>
                     alert('Data gagal ditambahkan');
                     document.location.href = '/tambah-kec'
+                </script>
+            ";
+        }
+    }
+
+    public function editKec(Request $request){
+        //return $request;
+        $kecamatan = Kecamatan::where('ID_KECAMATAN',$request->id);
+        //return $kecamatan;
+        return view('admin/master/edit/kecamatan', ['kecamatan'=>$kecamatan]);
+    }
+
+    public function simpanKec(Request $request){
+        $kecamatan = new Kecamatan;
+        $kecamatan->ID_KECAMATAN = $request->idKec;
+        $kecamatan->KECAMATAN = $request->kecamatan;
+        if($kecamatan->save()){
+            echo "
+                <script>
+                    alert('Data berhasil dirubah');
+                    document.location.href = '/kec'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal dirubah');
+                    document.location.href = '/tambah-kec'
+                </script>
+            ";
+        }
+    }
+
+    public function hapusKec(Request $request){
+        //return $request;
+        $kecamatan = Kecamatan::where('ID_KECAMATAN',$request->id);
+        if($kecamatan->delete()){
+            echo "
+                <script>
+                    alert('Data berhasil dihapus');
+                    document.location.href = '/kecamatan'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal didihapus');
+                    document.location.href = '/kecamatan'
                 </script>
             ";
         }
@@ -69,7 +117,7 @@ class DataMasController extends Controller
             echo "
                 <script>
                     alert('Data berhasil ditambahkan');
-                    document.location.href = '/tambah-kel'
+                    document.location.href = '/kel'
                 </script>
             ";
         } else {
@@ -77,6 +125,26 @@ class DataMasController extends Controller
                 <script>
                     alert('Data gagal ditambahkan');
                     document.location.href = '/tambah-kel'
+                </script>
+            ";
+        }
+    }
+
+    public function hapusKel(Request $request){
+        //return $request;
+        $kelurahan = Kelurahan::where('ID_KELURAHAN',$request->id);
+        if($kelurahan->delete()){
+            echo "
+                <script>
+                    alert('Data berhasil dihapus');
+                    document.location.href = '/kelurahan'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal didihapus');
+                    document.location.href = '/kelurahan'
                 </script>
             ";
         }
@@ -102,7 +170,7 @@ class DataMasController extends Controller
             echo "
                 <script>
                     alert('Data berhasil ditambahkan');
-                    document.location.href = '/tambah-pos'
+                    document.location.href = '/pos'
                 </script>
             ";
         } else {
@@ -110,6 +178,26 @@ class DataMasController extends Controller
                 <script>
                     alert('Data gagal ditambahkan');
                     document.location.href = '/tambah-pos'
+                </script>
+            ";
+        }
+    }
+
+    public function hapusPos(Request $request){
+        //return $request;
+        $posyandu = Posyandu::where('ID_POSYANDU',$request->id);
+        if($posyandu->delete()){
+            echo "
+                <script>
+                    alert('Data berhasil dihapus');
+                    document.location.href = '/posyandu'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal didihapus');
+                    document.location.href = '/posyandu'
                 </script>
             ";
         }
@@ -133,7 +221,7 @@ class DataMasController extends Controller
             echo "
                 <script>
                     alert('Data berhasil ditambahkan');
-                    document.location.href = '/tambah-role'
+                    document.location.href = '/role'
                 </script>
             ";
         } else {
@@ -146,8 +234,9 @@ class DataMasController extends Controller
         }
     }
 
-    public function hapusRole($id){
-        $role = Role::find($id);
+    public function hapusRole(Request $request){
+        //return $request;
+        $role = Role::where('ID_ROLE',$request->id);
         if($role->delete()){
             echo "
                 <script>
@@ -158,7 +247,7 @@ class DataMasController extends Controller
         } else {
             echo "
                 <script>
-                    alert('Data gagal dihapus');
+                    alert('Data gagal didihapus');
                     document.location.href = '/role'
                 </script>
             ";

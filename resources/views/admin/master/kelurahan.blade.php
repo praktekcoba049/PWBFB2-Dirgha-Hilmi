@@ -26,14 +26,14 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Kelurahan</th>
+                            <th>ID Kecamatan</th>
                             <th>Nama Kelurahan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID Kelurahan</th>
+                            <th>ID Kecamatan</th>
                             <th>Nama Kelurahan</th>
                             <th>Aksi</th>
                         </tr>
@@ -41,10 +41,16 @@
                     <tbody>
                         @foreach ($kelurahan as $item)
                             <tr>
-                                <td>{{ $item->ID_KELURAHAN }}</td>
+                                <td>{{ $item->ID_KECAMATAN }}</td>
                                 <td>{{ $item->KELURAHAN }}</td>
                                 <td>
-                                    <a href="/edit-kel" class="btn btn-primary tombol">Ubah</a>
+                                    <form action="/edit-kel" method="post" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $item->ID_KELURAHAN }}">
+                                        <button class="btn btn-primary tombol border-0">
+                                            Edit
+                                        </button>
+                                    </form>
                                     <form action="/kel-hapus" method="post" class="d-inline">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $item->ID_KELURAHAN }}">

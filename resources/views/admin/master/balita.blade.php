@@ -16,7 +16,6 @@
                     <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="/tambah-kec" class="btn btn-primary tombol">Tambah Data</a>
                     <a href="#" class="btn btn-warning tombol" onclick="return confirm('Akan menghapus semua data');">Reset Data</a>
                 </div>
             </div>

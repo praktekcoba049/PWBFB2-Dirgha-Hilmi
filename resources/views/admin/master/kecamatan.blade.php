@@ -26,14 +26,12 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Kecamatan</th>
                             <th>Nama Kecamatan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID Kecamatan</th>
                             <th>Nama Kecamatan</th>
                             <th>Aksi</th>
                         </tr>
@@ -41,7 +39,6 @@
                     <tbody>
                         @foreach ($kecamatan as $item)
                             <tr>
-                                <td>{{ $item->ID_KECAMATAN }}</td>
                                 <td>{{ $item->KECAMATAN }}</td>
                                 <td>
                                     <form action="/edit-kec" method="post" class="d-inline">

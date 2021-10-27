@@ -28,13 +28,12 @@ class DataMasController extends Controller
 
     public function dataKec(Request $request){
         $kecamatan = new Kecamatan;
-        $kecamatan->ID_KECAMATAN = $request->id_kec;
         $kecamatan->KECAMATAN = $request->kecamatan;
         if($kecamatan->save()){
             echo "
                 <script>
                     alert('Data berhasil ditambahkan');
-                    document.location.href = '/kec'
+                    document.location.href = '/kecamatan'
                 </script>
             ";
         } else {
@@ -48,28 +47,26 @@ class DataMasController extends Controller
     }
 
     public function editKec(Request $request){
-        //return $request;
-        $kecamatan = Kecamatan::where('ID_KECAMATAN',$request->id);
-        //return $kecamatan;
+        $kecamatan = Kecamatan::where('ID_KECAMATAN',$request->id)->first();
         return view('admin/master/edit/kecamatan', ['kecamatan'=>$kecamatan]);
     }
 
     public function simpanKec(Request $request){
-        $kecamatan = new Kecamatan;
-        $kecamatan->ID_KECAMATAN = $request->idKec;
-        $kecamatan->KECAMATAN = $request->kecamatan;
-        if($kecamatan->save()){
+        $kecamatan = Kecamatan::where('ID_KECAMATAN',$request->id);
+        if($kecamatan->update([
+            'KECAMATAN'=>$request->kecamatan
+            ])){
             echo "
                 <script>
                     alert('Data berhasil dirubah');
-                    document.location.href = '/kec'
+                    document.location.href = '/kecamatan'
                 </script>
             ";
         } else {
             echo "
                 <script>
                     alert('Data gagal dirubah');
-                    document.location.href = '/tambah-kec'
+                    document.location.href = '/edit-kec'
                 </script>
             ";
         }
@@ -110,14 +107,13 @@ class DataMasController extends Controller
     public function dataKel(Request $request){
         //return $request;
         $kelurahan = new Kelurahan;
-        $kelurahan->ID_KELURAHAN = $request->id_kel;
         $kelurahan->ID_KECAMATAN = $request->ID_KECAMATAN;
         $kelurahan->KELURAHAN = $request->kelurahan;
         if($kelurahan->save()){
             echo "
                 <script>
                     alert('Data berhasil ditambahkan');
-                    document.location.href = '/kel'
+                    document.location.href = '/kelurahan'
                 </script>
             ";
         } else {
@@ -125,6 +121,34 @@ class DataMasController extends Controller
                 <script>
                     alert('Data gagal ditambahkan');
                     document.location.href = '/tambah-kel'
+                </script>
+            ";
+        }
+    }
+
+    public function editKel(Request $request){
+        $kecamatan = Kecamatan::all();
+        $kelurahan = Kelurahan::where('ID_KELURAHAN',$request->id)->first();
+        return view('admin/master/edit/kelurahan', ['kecamatan'=>$kecamatan, 'kelurahan'=>$kelurahan]);
+    }
+
+    public function simpanKel(Request $request){
+        $kelurahan = Kelurahan::where('ID_KELURAHAN',$request->id);
+        if($kelurahan->update([
+            'ID_KECAMATAN'=>$request->ID_KECAMATAN,
+            'KELURAHAN'=>$request->kelurahan
+            ])){
+            echo "
+                <script>
+                    alert('Data berhasil dirubah');
+                    document.location.href = '/kelurahan'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal dirubah');
+                    document.location.href = '/edit-kel'
                 </script>
             ";
         }
@@ -163,14 +187,14 @@ class DataMasController extends Controller
 
     public function dataPos(Request $request){
         $posyandu = new Posyandu;
-        $posyandu->ID_POSYANDU = $request->id_pos;
+        $posyandu->ID_KELURAHAN = $request->ID_KELURAHAN;
         $posyandu->NAMA_POSYANDU = $request->posyandu;
         $posyandu->ALAMAT_POSYANDU = $request->alamat;
         if($posyandu->save()){
             echo "
                 <script>
                     alert('Data berhasil ditambahkan');
-                    document.location.href = '/pos'
+                    document.location.href = '/posyandu'
                 </script>
             ";
         } else {
@@ -178,6 +202,35 @@ class DataMasController extends Controller
                 <script>
                     alert('Data gagal ditambahkan');
                     document.location.href = '/tambah-pos'
+                </script>
+            ";
+        }
+    }
+
+    public function editPos(Request $request){
+        $kelurahan = Kelurahan::all();
+        $posyandu = Posyandu::where('ID_POSYANDU',$request->id)->first();
+        return view('admin/master/edit/posyandu', ['kelurahan'=>$kelurahan, 'posyandu'=>$posyandu]);
+    }
+
+    public function simpanPos(Request $request){
+        $posyandu = Posyandu::where('ID_POSYANDU',$request->id);
+        if($posyandu->update([
+            'ID_KELURAHAN'=>$request->ID_KELURAHAN,
+            'NAMA_POSYANDU'=>$request->posyandu,
+            'ALAMAT_POSYANDU'=>$request->alamat
+            ])){
+            echo "
+                <script>
+                    alert('Data berhasil dirubah');
+                    document.location.href = '/posyandu'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal dirubah');
+                    document.location.href = '/edit-pos'
                 </script>
             ";
         }
@@ -215,7 +268,6 @@ class DataMasController extends Controller
 
     public function dataRole(Request $request){
         $role = new Role;
-        $role->ID_ROLE = $request->id_role;
         $role->ROLE = $request->role;
         if($role->save()){
             echo "
@@ -229,6 +281,32 @@ class DataMasController extends Controller
                 <script>
                     alert('Data gagal ditambahkan');
                     document.location.href = '/tambah-role'
+                </script>
+            ";
+        }
+    }
+
+    public function editRole(Request $request){
+        $role = Role::where('ID_ROLE',$request->id)->first();
+        return view('admin/master/edit/role', ['role'=>$role]);
+    }
+
+    public function simpanRole(Request $request){
+        $role = Role::where('ID_ROLE',$request->id);
+        if($role->update([
+            'ROLE'=>$request->role
+            ])){
+            echo "
+                <script>
+                    alert('Data berhasil dirubah');
+                    document.location.href = '/role'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal dirubah');
+                    document.location.href = '/edit-role'
                 </script>
             ";
         }

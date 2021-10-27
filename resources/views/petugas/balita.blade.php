@@ -1,77 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('../petugas/layouts/master')
 
-<head>
+@section('container')
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Daftar Balita</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the <a target="_blank"
+            href="https://datatables.net">official DataTables documentation</a>.</p>
 
-    <title>SB Admin 2 - Register</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
-
-</head>
-
-<body class="bg-gradient-primary">
-    <div class="container mt-5">
-        <div class="row justify-content-md-center">
-
-            <div class="card o-hidden border-0 shadow-lg my-5 col-lg-10">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="p-5">
-                        <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Tambah Data Balita!</h1>
-                        </div>
-                        <form class="user">
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-user text-center" id="idIn"
-                                    placeholder="ID Kelurahan">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-user text-center" id="KecamatanIn"
-                                    placeholder="Nama Kelurahan">
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <a href="/petugas" class="btn btn-danger btn-user btn-block">
-                                        Batal
-                                    </a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <a href="#" class="btn btn-success btn-user btn-block">
-                                        Tambah
-                                    </a>
-                                </div>
-                            </div>
-                            <hr>
-                        </form>
-                    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-sm-6 py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="#" class="btn btn-warning tombol" onclick="return confirm('Akan menghapus semua data');">Reset Data</a>
                 </div>
             </div>
         </div>
-    </div>    
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nama Balita</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Nama Orangtua</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Nama Balita</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Nama Orangtua</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach($balita as $item)
+                            <tr>
+                                <td>{{ $item->NAMA_BALITA }}</td>
+                                <td>{{ $item->TGL_LAHIR_BALITA }}</td>
+                                <td>{{ $item->JENIS_KELAMIN_BALITA }}</td>
+                                <td>{{ $item->NAMA_ORANG_TUA }}</td>
+                                <td>
+                                    <a href="/edit-kec" class="btn btn-primary tombol">Ubah</a>
+                                    <a href="#" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="assets/js/sb-admin-2.min.js"></script>
-
-</body>
-
-</html>
+@endsection    

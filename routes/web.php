@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HistoriController;
 use App\Http\Controllers\DataMasController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PetugasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,23 +49,17 @@ Route::post('/role-store', [DataMasController::class, 'dataRole']);
 
 
 //Edit Data
-Route::get('/edit-kec', function () {
-    return view('admin/master/edit/kecamatan');
-});
 Route::post('/edit-kec', [DataMasController::class, 'editKec']);
 Route::post('/kec-edit', [DataMasController::class, 'simpanKec']);
 
-Route::get('/edit-kel', function () {
-    return view('admin/master/edit/kelurahan');
-});
+Route::post('/edit-kel', [DataMasController::class, 'editKel']);
+Route::post('/kel-edit', [DataMasController::class, 'simpanKel']);
 
-Route::get('/edit-pos', function () {
-    return view('admin/master/edit/posyandu');
-});
+Route::post('/edit-pos', [DataMasController::class, 'editPos']);
+Route::post('/pos-edit', [DataMasController::class, 'simpanPos']);
 
-Route::get('/edit-role', function () {
-    return view('admin/master/edit/role');
-});
+Route::post('/edit-role', [DataMasController::class, 'editRole']);
+Route::post('/role-edit', [DataMasController::class, 'simpanRole']);
 
 // Hapus
 Route::post('/kec-hapus', [DataMasController::class, 'hapusKec'],[]);
@@ -101,6 +96,11 @@ Route::get('/petugas', function () {
     return view('petugas/home');
 });
 
-Route::get('/petugas-balita', function () {
+/*Route::get('/petugas/balita', function () {
     return view('petugas/balita');
+});*/
+Route::get('/petugas/balita', [PetugasController::class, 'balita']);
+
+Route::get('/petugas/hposyandu', function () {
+    return view('petugas/hposyandu');
 });

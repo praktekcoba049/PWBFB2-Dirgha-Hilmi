@@ -7,18 +7,15 @@
         <div class="text-center">
             <h1 class="h4 text-gray-900 mb-4">Edit Role</h1>
         </div>
-        <form class="user">
+        <form action="/role-edit" method="post">
+            @csrf
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="idPosIn"
-                    placeholder="ID Posyandu">
+                <input type="hidden" class="form-control form-control-user text-center" id="roleIn"
+                    placeholder="Role" name="id" value="{{ $role->ID_ROLE }}">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="posyanduIn"
-                    placeholder="Nama Posyandu">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="KecamatanIn"
-                    placeholder="Alamat Posyandu">
+                <input type="text" class="form-control form-control-user text-center" id="roleIn"
+                    placeholder="Role" name="role" value="{{ $role->ROLE }}">
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -27,9 +24,9 @@
                     </a>
                 </div>
                 <div class="col-sm-6">
-                    <a href="#" class="btn btn-success btn-user btn-block">
-                        Simpan
-                    </a>
+                    <button type="submit" name="submit" class="btn btn-success btn-user btn-block">
+                        Update
+                    </button>
                 </div>
             </div>
             <hr>

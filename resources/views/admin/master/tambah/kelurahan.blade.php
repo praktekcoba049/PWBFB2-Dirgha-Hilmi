@@ -10,10 +10,6 @@
         <form action="/kel-store" method="post">
             @csrf
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="id_kel"
-                    placeholder="ID Kelurahan" name="id_kel">
-            </div>
-            <div class="form-group">
                 <select name="ID_KECAMATAN" class="form-control text-center">
                     <option value="">- Pilih Kecamatan -</option>
                     @foreach ($kecamatan as $item)

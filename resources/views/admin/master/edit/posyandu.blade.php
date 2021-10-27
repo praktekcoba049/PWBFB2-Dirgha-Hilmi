@@ -8,18 +8,26 @@
         <div class="text-center">
             <h1 class="h4 text-gray-900 mb-4">Edit Data Posyandu</h1>
         </div>
-        <form class="user">
+        <form action="/pos-edit" method="post">
+            @csrf
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="idPosIn"
-                    placeholder="ID Posyandu">
+                <input type="hidden" class="form-control form-control-user text-center" id="idPosIn"
+                    placeholder="ID Posyandu" name="id" value="{{ $posyandu->ID_POSYANDU }}">
+            </div>
+            <div class="form-group">
+                <select name="ID_KELURAHAN" class="form-control text-center">
+                    @foreach ($kelurahan as $item)
+                        <option value="{{ $item->ID_KELURAHAN }}">{{ $item->KELURAHAN }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control form-control-user text-center" id="posyanduIn"
-                    placeholder="Nama Posyandu">
+                    placeholder="Nama Posyandu" name="posyandu" value="{{ $posyandu->NAMA_POSYANDU }}">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="KecamatanIn"
-                    placeholder="Alamat Posyandu">
+                <input type="text" class="form-control form-control-user text-center" id="alamat"
+                    placeholder="Alamat Posyandu" name="alamat" value="{{ $posyandu->ALAMAT_POSYANDU }}">
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -28,9 +36,9 @@
                     </a>
                 </div>
                 <div class="col-sm-6">
-                    <a href="#" class="btn btn-success btn-user btn-block">
-                        Simpan
-                    </a>
+                    <button type="submit" name="submit" class="btn btn-success btn-user btn-block">
+                        Update
+                    </button>
                 </div>
             </div>
             <hr>

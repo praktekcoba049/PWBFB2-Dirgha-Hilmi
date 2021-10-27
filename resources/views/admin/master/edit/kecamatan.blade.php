@@ -8,9 +8,9 @@
             <h1 class="h4 text-gray-900 mb-4">Edit Data Kecamatan</h1>
         </div>
         <form action="/kec-edit" method="post">
+            @csrf
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="idKec"
-                    placeholder="ID Kecamatan" name="idKec" value="{{ $kecamatan->ID_KECAMATAN }}">
+                <input type="hidden" name="id" value="{{ $kecamatan->ID_KECAMATAN }}">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control form-control-user text-center" id="kecamatan"
@@ -24,12 +24,14 @@
                 </div>
                 <div class="col-sm-6">
                     <button type="submit" name="submit" class="btn btn-success btn-user btn-block">
-                        Tambah
+                        Update
                     </button>
                 </div>
             </div>
             <hr>
         </form>
+        
+        
     </div>
 </div>
 

@@ -26,14 +26,12 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Role</th>
                             <th>Role</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID Role</th>
                             <th>Role</th>
                             <th>Aksi</th>
                         </tr>
@@ -41,10 +39,15 @@
                     <tbody>
                         @foreach ($role as $item)
                             <tr>
-                                <td>{{ $item->ID_ROLE }}</td>
                                 <td>{{ $item->ROLE }}</td>
                                 <td>
-                                    <a href="/edit-role" class="btn btn-primary tombol">Ubah</a>
+                                    <form action="/edit-role" method="post" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $item->ID_ROLE }}">
+                                        <button class="btn btn-primary tombol border-0">
+                                            Edit
+                                        </button>
+                                    </form>
                                     <form action="/role-hapus" method="post" class="d-inline">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $item->ID_ROLE }}">

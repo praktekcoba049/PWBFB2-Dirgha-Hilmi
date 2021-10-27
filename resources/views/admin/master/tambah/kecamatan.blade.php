@@ -10,10 +10,6 @@
         <form action="/kec-store" method="post">
             @csrf
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="id_kec"
-                    placeholder="ID Kecamatan" name="id_kec">
-            </div>
-            <div class="form-group">
                 <input type="text" class="form-control form-control-user text-center" id="kecamatan"
                     placeholder="Nama Kecamatan" name="kecamatan">
             </div>

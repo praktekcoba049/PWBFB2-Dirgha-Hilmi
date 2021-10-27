@@ -26,7 +26,6 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Posyandu</th>
                             <th>Nama Posyandu</th>
                             <th>Alamat Posyandu</th>
                             <th>Aksi</th>
@@ -34,7 +33,6 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID Posyandu</th>
                             <th>Nama Posyandu</th>
                             <th>Alamat Posyandu</th>
                             <th>Aksi</th>
@@ -43,11 +41,16 @@
                     <tbody>
                         @foreach ($posyandu as $item)
                             <tr>
-                                <td>{{ $item->ID_POSYANDU }}</td>
                                 <td>{{ $item->NAMA_POSYANDU }}</td>
                                 <td>{{ $item->ALAMAT_POSYANDU }}</td>
                                 <td>
-                                    <a href="/edit-pos" class="btn btn-primary tombol">Ubah</a>
+                                    <form action="/edit-pos" method="post" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $item->ID_POSYANDU }}">
+                                        <button class="btn btn-primary tombol border-0">
+                                            Edit
+                                        </button>
+                                    </form>
                                     <form action="/pos-hapus" method="post" class="d-inline">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $item->ID_POSYANDU }}">

@@ -8,14 +8,21 @@
         <div class="text-center">
             <h1 class="h4 text-gray-900 mb-4">Edit Data Kelurahan</h1>
         </div>
-        <form class="user">
+        <form action="/kel-edit" method="post">
+            @csrf
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="idIn"
-                    placeholder="ID Kelurahan">
+                <input type="hidden" name="id" value="{{ $kelurahan->ID_KELURAHAN }}">
+            </div>
+            <div class="form-group">
+                <select name="ID_KECAMATAN" class="form-control text-center">
+                    @foreach ($kecamatan as $item)
+                        <option value="{{ $item->ID_KECAMATAN }}">{{ $item->KECAMATAN }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control form-control-user text-center" id="KecamatanIn"
-                    placeholder="Nama Kelurahan">
+                    placeholder="Nama Kelurahan" name="kelurahan" value="{{ $kelurahan->KELURAHAN }}">
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -24,9 +31,9 @@
                     </a>
                 </div>
                 <div class="col-sm-6">
-                    <a href="#" class="btn btn-success btn-user btn-block">
-                        Simpan
-                    </a>
+                    <button type="submit" name="submit" class="btn btn-success btn-user btn-block">
+                        Update
+                    </button>
                 </div>
             </div>
             <hr>

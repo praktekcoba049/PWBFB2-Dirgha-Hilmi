@@ -10,10 +10,6 @@
         <form action="/role-store" method="post">
             @csrf
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="id_role"
-                    placeholder="ID Role" name="id_role">
-            </div>
-            <div class="form-group">
                 <input type="text" class="form-control form-control-user text-center" id="role"
                     placeholder="Role" name="role">
             </div>

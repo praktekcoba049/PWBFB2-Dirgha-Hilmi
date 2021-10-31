@@ -33,8 +33,16 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Register Now!</h1>
                         </div>
-                        <form action="/registrasi" method="post">
+                        <form action="/reg-admin" method="post">
                             @csrf
+                            <div class="form-group">
+                                <select name="id_posyandu" class="form-control text-center">
+                                    <option value="">- Pilih Posyandu -</option>
+                                    @foreach ($posyandu as $item)
+                                        <option value="{{ $item->ID_POSYANDU }}">{{ $item->NAMA_POSYANDU }} {{ $item->ALAMAT_POSYANDU }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
                                         placeholder="Username" name="username">
@@ -54,7 +62,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="/login">Already have an account? Login!</a>
+                            <a class="small" href="/login-admin">Already have an account? Login!</a>
                         </div>
                     </div>
                 </div>

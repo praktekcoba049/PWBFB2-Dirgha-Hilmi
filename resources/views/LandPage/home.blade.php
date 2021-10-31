@@ -53,7 +53,13 @@
           <li><a class="nav-link scrollto active" href="#home">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="/login">Login/Sign Up</a></li>
+          <li class="dropdown"><a class="getstarted scrollto" href="#"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/login-admin">Admin Super</a></li>
+              <li><a href="/login-petugas">Petugas</a></li>
+              <li><a href="/login-ortu">Orangtua</a></li>
+            </ul>
+          </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

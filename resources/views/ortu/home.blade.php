@@ -1,4 +1,4 @@
-@extends('../petugas/layouts/master')
+@extends('../ortu/layouts/master')
 
 @section('container')
 

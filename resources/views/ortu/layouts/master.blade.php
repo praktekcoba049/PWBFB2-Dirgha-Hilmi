@@ -56,7 +56,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Petugas
+                Orangtua
             </div>
 
             <!-- Nav Item - Master Collapse Menu -->
@@ -65,23 +65,6 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Aplikasi</span>
                 </a>
-            </li>
-
-            <!-- Nav Item - Pendukung Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePendukung"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Data Posyandu</span>
-                </a>
-                <div id="collapsePendukung" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Data Posyandu:</h6>
-                        <a class="collapse-item" href="/petugas-balita">Balita</a>
-                        <a class="collapse-item" href="/petugas-hposyandu">History Posyandu</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Divider -->
@@ -101,7 +84,7 @@
             <!-- Main Content -->
             <div id="content">
 
-                @include('../petugas/partials/sidenavbar')
+                @include('../ortu/partials/sidenavbar')
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">

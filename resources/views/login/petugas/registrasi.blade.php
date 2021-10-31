@@ -31,41 +31,38 @@
                     <!-- Nested Row within Card Body -->
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Log In</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Register Now!</h1>
                         </div>
-                        @if (session()->has('succes'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endif
-                        @if (session()->has('loginError'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{ session('loginError') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endif
-                        <form action="/login" method="post">
+                        <form action="/reg-petugas" method="post">
                             @csrf
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user text-center" id="username"
-                                    placeholder="Username" name="username" autofocus required>
+                                <select name="id_posyandu" class="form-control text-center">
+                                    <option value="">- Pilih Posyandu -</option>
+                                    @foreach ($posyandu as $item)
+                                        <option value="{{ $item->ID_POSYANDU }}">{{ $item->NAMA_POSYANDU }} {{ $item->ALAMAT_POSYANDU }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
+                                        placeholder="Username" name="username">
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control form-control-user text-center"
-                                    id="password" placeholder="Password" name="password" required>
+                                        id="exampleInputPassword" placeholder="Password" name="password1">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control form-control-user text-center"
+                                        id="exampleRepeatPassword" placeholder="Repeat Password" name="password2">
                             </div>
                             <br>
                             <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
-                                Log In
+                                Register Account
                             </button>
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
-                        </div>
-                        <div class="text-center">
-                            <a class="small" href="/registrasi">Haven't an account? Register!</a>
+                            <a class="small" href="/login-petugas">Already have an account? Login!</a>
                         </div>
                     </div>
                 </div>

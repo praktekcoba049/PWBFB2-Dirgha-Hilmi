@@ -78,16 +78,29 @@ Route::get('/', function () {
 });
 
 // Login
+/*
 Route::get('/login', function () {
     return view('login/login');
 });
 Route::get('/login', [LoginController::class, 'login']);
 Route::post('/login', [LoginController::class, 'cekLogin']);
+*/
+Route::get('/login-admin', [LoginController::class, 'loginAdmin']);
+Route::post('/admin-cek', [LoginController::class, 'adminCek']);
+
+Route::get('/login-petugas', [LoginController::class, 'loginPetugas']);
+Route::post('/petugas-cek', [LoginController::class, 'petugasCek']);
+
+Route::get('/login-ortu', [LoginController::class, 'loginOrtu']);
+Route::post('/ortu-cek', [LoginController::class, 'ortuCek']);
 
 
 // registrasi
-Route::get('/registrasi', [LoginController::class, 'registrasi']);
-Route::post('/registrasi', [LoginController::class, 'dataUser']);
+Route::get('/reg-petugas', [LoginController::class, 'regPetugas']);
+Route::post('/reg-petugas', [LoginController::class, 'dataPetugas']);
+
+Route::get('/reg-ortu', [LoginController::class, 'regOrtu']);
+Route::post('/reg-ortu', [LoginController::class, 'dataOrtu']);
 
 
 
@@ -99,8 +112,13 @@ Route::get('/petugas', function () {
 /*Route::get('/petugas/balita', function () {
     return view('petugas/balita');
 });*/
-Route::get('/petugas/balita', [PetugasController::class, 'balita']);
+Route::get('/petugas-balita', [PetugasController::class, 'balita']);
 
-Route::get('/petugas/hposyandu', function () {
-    return view('petugas/hposyandu');
-});
+Route::get('/petugas-hposyandu', [PetugasController::class, 'hposyandu']);
+
+//Petugas Tambah Data
+Route::get('/petugas-balita-tambah', [PetugasController::class, 'tambahBalita']);
+Route::post('/petugas-balita-simpan', [PetugasController::class, 'simpanBalita']);
+
+Route::get('/petugas-hposyandu-tambah', [PetugasController::class, 'tambahHpos']);
+Route::post('/petugas-hposyandu-simpan', [PetugasController::class, 'simpanHpos']);

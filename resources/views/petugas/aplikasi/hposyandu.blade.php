@@ -31,26 +31,31 @@
                     <!-- Nested Row within Card Body -->
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Register Now!</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Tambah Data Balita!</h1>
                         </div>
-                        <form action="/registrasi" method="post">
+                        <form action="/petugas-hposyandu-simpan" method="post">
                             @csrf
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
-                                        placeholder="Username" name="username">
+                                        placeholder="ID Balita" name="id_balita">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control form-control-user text-center"
-                                        id="exampleInputPassword" placeholder="Password" name="password1">
+                                <input type="date" class="form-control form-control-user text-center" id="exampleFirstName"
+                                        placeholder="Tanggal Posyandu" name="tgl_posyandu">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control form-control-user text-center"
-                                        id="exampleRepeatPassword" placeholder="Repeat Password" name="password2">
+                                <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
+                                        placeholder="Berat Badan" name="berat">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
+                                        placeholder="Tinggi Badan" name="tinggi">
                             </div>
                             <br>
                             <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
-                                Register Account
+                                Simpan
                             </button>
+                            <a href="/petugas" class="btn btn-danger btn-user btn-block">Batal</a>
                         </form>
                         <hr>
                         <div class="text-center">

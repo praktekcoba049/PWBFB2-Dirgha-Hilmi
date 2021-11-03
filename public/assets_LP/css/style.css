@@ -442,7 +442,7 @@ section {
   justify-content: center;
 }
 .clients img {
-  width: 50%;
+  width: 80%;
   filter: grayscale(100);
   transition: all 0.4s ease-in-out;
   display: inline-block;
@@ -454,7 +454,7 @@ section {
 }
 @media (max-width: 768px) {
   .clients img {
-    width: 40%;
+    width:50%;
   }
 }
 @media (max-width: 575px) {

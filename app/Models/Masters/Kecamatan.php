@@ -9,7 +9,12 @@ class Kecamatan extends Model
 {
     protected $table = 'kecamatan';
 
-    public function tambah(){
-        
+    
+
+
+    public static function tambah(){
+        $idplus1=100000;
+        $idplus1=(int)$idplus1+1;
+        return $idplus1;
     }
 }

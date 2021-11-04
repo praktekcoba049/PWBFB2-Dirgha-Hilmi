@@ -122,7 +122,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 0 10px 30px;
   font-size: 15px;
   font-weight: 400;
-  color: #555555;
+  color: #ffa500;
   white-space: nowrap;
   transition: 0.3s;
 }
@@ -432,21 +432,22 @@ section {
 # Clients
 --------------------------------------------------------------*/
 .clients {
-  background: #f3f9fd;
+  background: #ffa500;
   padding: 10px 0;
   text-align: center;
 }
 .clients .col-lg-2 {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  height: auto;
   justify-content: center;
 }
 .clients img {
-  width: 50%;
-  filter: grayscale(100);
+  width: 55%;
   transition: all 0.4s ease-in-out;
   display: inline-block;
-  padding: 10px 0;
+  height:auto;
+  padding: 9px 0;
 }
 .clients img:hover {
   filter: none;
@@ -454,12 +455,12 @@ section {
 }
 @media (max-width: 768px) {
   .clients img {
-    width: 40%;
+    width:50%;
   }
 }
 @media (max-width: 575px) {
   .clients img {
-    width: 30%;
+    width: 40%;
   }
 }
 

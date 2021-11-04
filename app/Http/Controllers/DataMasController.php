@@ -27,8 +27,10 @@ class DataMasController extends Controller
     }
 
     public function dataKec(Request $request){
+        
         $kecamatan = new Kecamatan;
         $kecamatan->KECAMATAN = $request->kecamatan;
+        $kecamatan->ID_KECAMATAN=Kecamatan::tambah();
         if($kecamatan->save()){
             echo "
                 <script>
@@ -109,6 +111,7 @@ class DataMasController extends Controller
         $kelurahan = new Kelurahan;
         $kelurahan->ID_KECAMATAN = $request->ID_KECAMATAN;
         $kelurahan->KELURAHAN = $request->kelurahan;
+        $kelurahan->ID_KELURAHAN=Kelurahan::tambah1();
         if($kelurahan->save()){
             echo "
                 <script>
@@ -190,6 +193,8 @@ class DataMasController extends Controller
         $posyandu->ID_KELURAHAN = $request->ID_KELURAHAN;
         $posyandu->NAMA_POSYANDU = $request->posyandu;
         $posyandu->ALAMAT_POSYANDU = $request->alamat;
+        $posyandu->ID_POSYANDU=Posyandu::tambah2();
+
         if($posyandu->save()){
             echo "
                 <script>
@@ -269,6 +274,8 @@ class DataMasController extends Controller
     public function dataRole(Request $request){
         $role = new Role;
         $role->ROLE = $request->role;
+        $role->ID_ROLE=Role::tambah3();
+
         if($role->save()){
             echo "
                 <script>

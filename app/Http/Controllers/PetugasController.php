@@ -27,7 +27,7 @@ class PetugasController extends Controller
 
     public function simpanBalita(Request $request){
         $balita = new Balita;
-        $balita->ID_POSYANDU = $request->ID_POSYANDU;
+        $balita->ID_POSYANDU = $request->id_posyandu;
         $balita->NAMA_BALITA = $request->balita;
         $balita->NIK_ORANG_TUA = $request->NIK_orangtua;
         $balita->NAMA_ORANG_TUA = $request->orangtua;

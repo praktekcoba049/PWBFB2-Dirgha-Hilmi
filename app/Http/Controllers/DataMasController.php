@@ -92,6 +92,30 @@ class DataMasController extends Controller
         }
     }
 
+    public function kecamatanRestore(){
+        $kecamatan = Kecamatan::onlyTrashed()->get();
+        return view('admin/master/restore/kecamatan', ['kecamatan'=>$kecamatan]);
+    }
+
+    public function restoreKecamatan(Request $request){
+        $kecamatan = Kecamatan::where('ID_KECAMATAN',$request->id);
+        if($kecamatan->restore()){
+            echo "
+                <script>
+                    alert('Data berhasil dikembalikan');
+                    document.location.href = '/kecamatan'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal dikembalikan');
+                    document.location.href = '/kecamatan-restore'
+                </script>
+            ";
+        }
+    }
+
     public function kelurahan(){
         $kelurahan = Kelurahan::all();
         $kecamatan = Kecamatan::all();
@@ -169,6 +193,30 @@ class DataMasController extends Controller
                 <script>
                     alert('Data gagal didihapus');
                     document.location.href = '/kelurahan'
+                </script>
+            ";
+        }
+    }
+
+    public function kelurahanRestore(){
+        $kelurahan = Kelurahan::onlyTrashed()->get();
+        return view('admin/master/restore/kelurahan', ['kelurahan'=>$kelurahan]);
+    }
+
+    public function restoreKelurahan(Request $request){
+        $kelurahan = Kelurahan::where('ID_KELURAHAN',$request->id);
+        if($kelurahan->restore()){
+            echo "
+                <script>
+                    alert('Data berhasil dikembalikan');
+                    document.location.href = '/kelurahan'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal dikembalikan');
+                    document.location.href = '/kelurahan-restore'
                 </script>
             ";
         }
@@ -256,6 +304,30 @@ class DataMasController extends Controller
         }
     }
 
+    public function posyanduRestore(){
+        $posyandu = Posyandu::onlyTrashed()->get();
+        return view('admin/master/restore/posyandu', ['posyandu'=>$posyandu]);
+    }
+
+    public function restorePosyandu(Request $request){
+        $posyandu = Posyandu::where('ID_POSYANDU',$request->id);
+        if($posyandu->restore()){
+            echo "
+                <script>
+                    alert('Data berhasil dikembalikan');
+                    document.location.href = '/posyandu'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal dikembalikan');
+                    document.location.href = '/posyandu-restore'
+                </script>
+            ";
+        }
+    }
+
     public function role(){
         $role = Role::all();
         //return view('master/role');
@@ -332,10 +404,86 @@ class DataMasController extends Controller
         }
     }
 
+    public function roleRestore(){
+        $role = Role::onlyTrashed()->get();
+        return view('admin/master/restore/role', ['role'=>$role]);
+    }
+
+    public function restoreRole(Request $request){
+        $role = Role::where('ID_ROLE',$request->id);
+        if($role->restore()){
+            echo "
+                <script>
+                    alert('Data berhasil dikembalikan');
+                    document.location.href = '/role'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal dikembalikan');
+                    document.location.href = '/role-restore'
+                </script>
+            ";
+        }
+    }
+
     public function balita(){
         $balita = Balita::all();
         //return view('master/posyandu');
         return view('admin/master/balita', ['balita'=>$balita]);
+    }
+
+    public function editBalita(Request $request){
+        $posyandu = Posyandu::all();
+        $balita = Balita::where('ID_BALITA',$request->id)->first();
+        return view('admin/master/edit/balita', ['posyandu'=>$posyandu, 'balita'=>$balita]);
+    }
+
+    public function simpanBalita(Request $request){
+        $balita = Balita::where('ID_BALITA',$request->id);
+        if($balita->update([
+            'ID_POSYANDU'=>$request->id_posyandu,
+            'NAMA_BALITA'=>$request->nama_balita,
+            'NIK_ORANG_TUA'=>$request->nik_orang_tua,
+            'TGL_LAHIR_BALITA'=>$request->tgl_lahir_balita,
+            'JENIS_KELAMIN_BALITA'=>$request->jenis_kelamin_balita,
+            'STATUS'=>$request->status
+            ])){
+            echo "
+                <script>
+                    alert('Data berhasil dirubah');
+                    document.location.href = '/balita'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal dirubah');
+                    document.location.href = '/edit-balita'
+                </script>
+            ";
+        }
+    }
+
+    public function hapusBalita(Request $request){
+        //return $request;
+        $balita = Balita::where('ID_BALITA',$request->id);
+        if($balita->delete()){
+            echo "
+                <script>
+                    alert('Data berhasil dihapus');
+                    document.location.href = '/balita'
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data gagal didihapus');
+                    document.location.href = '/balita'
+                </script>
+            ";
+        }
     }
 
     public function user(){
@@ -343,6 +491,4 @@ class DataMasController extends Controller
         //return view('master/posyandu');
         return view('admin/master/user', ['pengguna'=>$pengguna]);
     }
-
-    
 }

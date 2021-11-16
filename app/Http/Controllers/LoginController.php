@@ -58,6 +58,19 @@ class LoginController extends Controller
         return view('petugas/home');
     }
 
+    public function authenticate(Request $request){
+        $credentials = $request->validate([
+            'USERNAME' => 'required',
+            'PASSWORD' => 'required'
+        ]);
+
+        if (Auth::attempt($credentials)){
+            $request->session()->regenerate();
+            return redirect()->intended('/home-master');
+        }
+        return back()->with('loginError', 'Login Failed!');
+    }
+
     public function loginAdmin(){
         return view('login/admin/login');
     }

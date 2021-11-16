@@ -3,7 +3,7 @@
 @section('container')
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">List Kelurahan</h1>
+    <h1 class="h3 mb-2 text-gray-800">List Posyandu</h1>
     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
         For more information about DataTables, please visit the <a target="_blank"
             href="https://datatables.net">official DataTables documentation</a>.</p>
@@ -16,8 +16,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="/tambah-kel" class="btn btn-primary tombol">Tambah Data</a>
-                    <a href="/kelurahan-restore" class="btn btn-warning tombol">Restore Data</a>
+                    <a href="/posyandu" class="btn btn-primary tombol">Kembali</a>
                 </div>
             </div>
         </div>
@@ -26,36 +25,29 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Kecamatan</th>
-                            <th>Nama Kelurahan</th>
+                            <th>Nama Posyandu</th>
+                            <th>Alamat Posyandu</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID Kecamatan</th>
-                            <th>Nama Kelurahan</th>
+                            <th>Nama Posyandu</th>
+                            <th>Alamat Posyandu</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach ($kelurahan as $item)
+                        @foreach ($posyandu as $item)
                             <tr>
-                                <td>{{ $item->ID_KECAMATAN }}</td>
-                                <td>{{ $item->KELURAHAN }}</td>
+                                <td>{{ $item->NAMA_POSYANDU }}</td>
+                                <td>{{ $item->ALAMAT_POSYANDU }}</td>
                                 <td>
-                                    <form action="/edit-kel" method="post" class="d-inline">
+                                    <form action="/restore-posyandu" method="post" class="d-inline">
                                         @csrf
-                                        <input type="hidden" name="id" value="{{ $item->ID_KELURAHAN }}">
-                                        <button class="btn btn-primary tombol border-0">
-                                            Edit
-                                        </button>
-                                    </form>
-                                    <form action="/kel-hapus" method="post" class="d-inline">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $item->ID_KELURAHAN }}">
-                                        <button class="btn btn-danger tombol border-0" onclick="return confirm('Akan menghapus data');">
-                                            Hapus
+                                        <input type="hidden" name="id" value="{{ $item->ID_POSYANDU }}">
+                                        <button class="btn btn-success tombol border-0">
+                                            Restore
                                         </button>
                                     </form>
                                 </td>

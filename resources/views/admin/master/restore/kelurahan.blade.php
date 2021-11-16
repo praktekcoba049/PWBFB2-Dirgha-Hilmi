@@ -16,8 +16,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="/tambah-kel" class="btn btn-primary tombol">Tambah Data</a>
-                    <a href="/kelurahan-restore" class="btn btn-warning tombol">Restore Data</a>
+                    <a href="/kelurahan" class="btn btn-primary tombol">Kembali</a>
                 </div>
             </div>
         </div>
@@ -44,18 +43,11 @@
                                 <td>{{ $item->ID_KECAMATAN }}</td>
                                 <td>{{ $item->KELURAHAN }}</td>
                                 <td>
-                                    <form action="/edit-kel" method="post" class="d-inline">
+                                    <form action="/restore-kelurahan" method="post" class="d-inline">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $item->ID_KELURAHAN }}">
-                                        <button class="btn btn-primary tombol border-0">
-                                            Edit
-                                        </button>
-                                    </form>
-                                    <form action="/kel-hapus" method="post" class="d-inline">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $item->ID_KELURAHAN }}">
-                                        <button class="btn btn-danger tombol border-0" onclick="return confirm('Akan menghapus data');">
-                                            Hapus
+                                        <button class="btn btn-success tombol border-0">
+                                            Restore
                                         </button>
                                     </form>
                                 </td>

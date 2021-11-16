@@ -61,11 +61,28 @@ Route::post('/pos-edit', [DataMasController::class, 'simpanPos']);
 Route::post('/edit-role', [DataMasController::class, 'editRole']);
 Route::post('/role-edit', [DataMasController::class, 'simpanRole']);
 
+Route::post('/edit-balita', [DataMasController::class, 'editBalita']);
+Route::post('/balita-edit', [DataMasController::class, 'simpanBalita']);
+
 // Hapus
 Route::post('/kec-hapus', [DataMasController::class, 'hapusKec'],[]);
 Route::post('/kel-hapus', [DataMasController::class, 'hapusKel'],[]);
 Route::post('/pos-hapus', [DataMasController::class, 'hapusPos'],[]);
 Route::post('/role-hapus', [DataMasController::class, 'hapusRole'],[]);
+Route::post('/balita-hapus', [DataMasController::class, 'hapusBalita'],[]);
+
+// Restore
+Route::get('/kecamatan-restore', [DataMasController::class, 'kecamatanRestore']);
+Route::post('/restore-kecamatan', [DataMasController::class, 'restoreKecamatan']);
+
+Route::get('/kelurahan-restore', [DataMasController::class, 'kelurahanRestore']);
+Route::post('/restore-kelurahan', [DataMasController::class, 'restoreKelurahan']);
+
+Route::get('/posyandu-restore', [DataMasController::class, 'posyanduRestore']);
+Route::post('/restore-posyandu', [DataMasController::class, 'restorePosyandu']);
+
+Route::get('/role-restore', [DataMasController::class, 'roleRestore']);
+Route::post('/restore-role', [DataMasController::class, 'restoreRole']);
 
 
 // Histori
@@ -89,7 +106,7 @@ Route::get('/login-admin', [LoginController::class, 'loginAdmin']);
 Route::post('/admin-cek', [LoginController::class, 'adminCek']);
 
 Route::get('/login-petugas', [LoginController::class, 'loginPetugas']);
-Route::post('/petugas-cek', [LoginController::class, 'petugasCek']);
+Route::post('/petugas-cek', [LoginController::class, 'authenticate']);
 
 Route::get('/login-ortu', [LoginController::class, 'loginOrtu']);
 Route::post('/ortu-cek', [LoginController::class, 'ortuCek']);
@@ -109,9 +126,6 @@ Route::get('/petugas', function () {
     return view('petugas/home');
 });
 
-/*Route::get('/petugas/balita', function () {
-    return view('petugas/balita');
-});*/
 Route::get('/petugas-balita', [PetugasController::class, 'balita']);
 
 Route::get('/petugas-hposyandu', [PetugasController::class, 'hposyandu']);

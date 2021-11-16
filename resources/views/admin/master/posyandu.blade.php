@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-sm-6 text-right">
                     <a href="/tambah-pos" class="btn btn-primary tombol">Tambah Data</a>
-                    <a href="#" class="btn btn-warning tombol" onclick="return confirm('Akan menghapus semua data');">Reset Data</a>
+                    <a href="/posyandu-restore" class="btn btn-warning tombol">Restore Data</a>
                 </div>
             </div>
         </div>

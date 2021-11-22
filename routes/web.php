@@ -99,9 +99,10 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login/login');
 });
+*/
 Route::get('/login', [LoginController::class, 'login']);
 Route::post('/login', [LoginController::class, 'cekLogin']);
-*/
+
 Route::get('/login-admin', [LoginController::class, 'loginAdmin']);
 Route::post('/admin-cek', [LoginController::class, 'adminCek']);
 
@@ -113,6 +114,9 @@ Route::post('/ortu-cek', [LoginController::class, 'ortuCek']);
 
 
 // registrasi
+Route::get('/registrasi', [LoginController::class, 'registrasi']);
+Route::post('/registrasi', [LoginController::class, 'register']);
+
 Route::get('/reg-petugas', [LoginController::class, 'regPetugas']);
 Route::post('/reg-petugas', [LoginController::class, 'dataPetugas']);
 

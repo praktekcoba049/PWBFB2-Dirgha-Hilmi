@@ -28,6 +28,15 @@
   <!-- Template Main CSS File -->
   <link href="assets_LP/css/style.css" rel="stylesheet">
 
+  <!-- Custom fonts for this template-->
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: Vesperr - v4.5.0
   * Template URL: https://bootstrapmade.com/vesperr-free-bootstrap-template/
@@ -55,9 +64,10 @@
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           <li class="dropdown"><a class="getstarted scrollto" href="#"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Admin Super</a></li>
-              <li><a href="#">Petugas</a></li>
-              <li><a href="#">Orangtua</a></li>
+              <li><a href="/login-admin">Admin Super</a></li>
+              <li><a href="/login-petugas">Petugas</a></li>
+              <li><a href="/login-ortu">Orangtua</a></li>
+              <li><a href="/login">Login</a></li>
             </ul>
           </li>
         </ul>
@@ -120,6 +130,16 @@
 
   <!-- Template Main JS File -->
   <script src="assets_LP/js/main.js"></script>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="assets/js/sb-admin-2.min.js"></script>
 
 </body>
 

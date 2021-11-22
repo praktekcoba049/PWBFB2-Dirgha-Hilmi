@@ -12,11 +12,11 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Register Now!</h1>
                         </div>
-                        <form action="/reg-ortu" method="post">
+                        <form action="/registrasi" method="post">
                             @csrf
                             <div class="form-group">
                                 <select name="id_posyandu" class="form-control text-center">
-                                    <option value="">- Pilih Posyandu -</option>
+                                    <option value="{{ old('id_posyandu') }}">- Pilih Posyandu -</option>
                                     @foreach ($posyandu as $item)
                                         <option value="{{ $item->ID_POSYANDU }}">{{ $item->NAMA_POSYANDU }} {{ $item->ALAMAT_POSYANDU }}</option>
                                     @endforeach
@@ -24,15 +24,11 @@
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
-                                        placeholder="Username" name="username">
+                                        placeholder="Username" name="username" value="{{ old('username') }}">
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control form-control-user text-center"
-                                        id="exampleInputPassword" placeholder="Password" name="password1">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control form-control-user text-center"
-                                        id="exampleRepeatPassword" placeholder="Repeat Password" name="password2">
+                                        id="exampleInputPassword" placeholder="Password" name="password">
                             </div>
                             <br>
                             <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
@@ -41,7 +37,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="/login-ortu">Already have an account? Login!</a>
+                            <a class="small" href="/login">Already have an account? Login!</a>
                         </div>
                     </div>
                 </div>

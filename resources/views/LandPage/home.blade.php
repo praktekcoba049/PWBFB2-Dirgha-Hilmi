@@ -58,6 +58,7 @@
               <li><a href="/login-admin">Admin Super</a></li>
               <li><a href="/login-petugas">Petugas</a></li>
               <li><a href="/login-ortu">Orangtua</a></li>
+              <li><a href="/login">Login</a></li>
             </ul>
           </li>
         </ul>

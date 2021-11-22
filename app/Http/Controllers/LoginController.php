@@ -9,7 +9,7 @@ use App\Models\Masters\Posyandu;
 use App\Models\Masters\Role;
 use App\Models\Masters\UserRole;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -123,6 +123,37 @@ class LoginController extends Controller
     public function ortuCek(Request $request){
         $user = Pengguna::where('username',$request->username)->first();
         return view('ortu/home');
+    }
+
+    public function registrasi(){
+        $posyandu = Posyandu::all();
+        return view('login/registrasi', ['posyandu'=>$posyandu]);
+    }
+
+    public function register(Request $request){
+        $request->validate([
+                'id_posyandu' => 'required',
+                'username' => 'required|unique:pengguna|min:4',
+                'password' => 'required|min:5|max:255',
+        ]);
+        
+        $request->password = Hash::make($request->password);
+
+        $user = new Pengguna;
+        $user->ID_POSYANDU = $request->id_posyandu;
+        $user->USERNAME = $request->username;
+        $user->PASSWORD = $request->password;
+        $user->save();
+        return redirect('/login')->with('success', 'Berhasil registrasi, silahkan login!');
+    }
+
+    public function login(){
+        return view('login/login');
+    }
+
+    public function loginCek(Request $request){
+        $user = Pengguna::where('username',$request->username)->first();
+        return redirect('/home-master');
     }
 
 }

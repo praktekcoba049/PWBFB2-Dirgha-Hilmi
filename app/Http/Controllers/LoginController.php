@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Masters\Pengguna;
 use App\Models\Masters\Posyandu;
 use App\Models\Masters\Role;
@@ -132,15 +133,13 @@ class LoginController extends Controller
 
     public function register(Request $request){
         $request->validate([
-                'id_posyandu' => 'required',
-                'username' => 'required|unique:pengguna|min:4',
+                'username' => 'required|unique:users|min:4',
                 'password' => 'required|min:5|max:255',
         ]);
         
         $request->password = Hash::make($request->password);
 
-        $user = new Pengguna;
-        $user->ID_POSYANDU = $request->id_posyandu;
+        $user = new User;
         $user->USERNAME = $request->username;
         $user->PASSWORD = $request->password;
         $user->save();
@@ -151,9 +150,19 @@ class LoginController extends Controller
         return view('login/login');
     }
 
-    public function loginCek(Request $request){
-        $user = Pengguna::where('username',$request->username)->first();
-        return redirect('/home-master');
+    public function cekLogin(Request $request){
+        $credentials = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('/home-master');
+        }
+
+        return back()->with('loginError', 'Login gagal');
     }
 
 }

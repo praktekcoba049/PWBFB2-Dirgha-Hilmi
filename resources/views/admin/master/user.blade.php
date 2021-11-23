@@ -38,13 +38,18 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($pengguna as $item)
+                        @foreach($users as $item)
                             <tr>
-                                <td>{{ $item->USERNAME }}</td>
-                                <td><a href="3" class="btn btn-warning tombol">Reset Pass</a></td>
+                                <td>{{ $item->username }}</td>
                                 <td>
-                                    <a href="/edit-kec" class="btn btn-primary tombol">Ubah</a>
-                                    <a href="#" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>
+                                    <a href="/edit-kec" class="btn btn-primary tombol">Set Role</a>
+                                    <form action="/user-hapus" method="post" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $item->id }}">
+                                        <button class="btn btn-danger tombol border-0" onclick="return confirm('Akan menghapus data');">
+                                            Hapus
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

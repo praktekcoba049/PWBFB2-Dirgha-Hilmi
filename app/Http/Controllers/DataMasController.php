@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Masters\Kecamatan;
 use App\Models\Masters\Kelurahan;
 use App\Models\Masters\Posyandu;
@@ -487,8 +488,8 @@ class DataMasController extends Controller
     }
 
     public function user(){
-        $pengguna = Pengguna::all();
+        $users = User::all();
         //return view('master/posyandu');
-        return view('admin/master/user', ['pengguna'=>$pengguna]);
+        return view('admin/master/user', ['users'=>$users]);
     }
 }

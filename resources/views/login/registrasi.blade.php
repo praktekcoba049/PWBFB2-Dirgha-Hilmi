@@ -15,14 +15,6 @@
                         <form action="/registrasi" method="post">
                             @csrf
                             <div class="form-group">
-                                <select name="id_posyandu" class="form-control text-center">
-                                    <option value="{{ old('id_posyandu') }}">- Pilih Posyandu -</option>
-                                    @foreach ($posyandu as $item)
-                                        <option value="{{ $item->ID_POSYANDU }}">{{ $item->NAMA_POSYANDU }} {{ $item->ALAMAT_POSYANDU }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
                                         placeholder="Username" name="username" value="{{ old('username') }}">
                             </div>

@@ -9,6 +9,12 @@
                 <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                 <div class="col-lg-6">
                     <div class="p-5">
+                        @if (session()->has('regisError'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('regisError') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Register Now!</h1>
                         </div>

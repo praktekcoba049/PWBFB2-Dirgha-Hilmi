@@ -16,7 +16,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="#" class="btn btn-warning tombol" onclick="return confirm('Akan menghapus semua data');">Reset Data</a>
+                    <a href="/user-restore" class="btn btn-warning tombol">Restore Data</a>
                 </div>
             </div>
         </div>
@@ -26,14 +26,12 @@
                     <thead>
                         <tr>
                             <th>Username</th>
-                            <th>Password</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Username</th>
-                            <th>Password</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
@@ -42,7 +40,6 @@
                             <tr>
                                 <td>{{ $item->username }}</td>
                                 <td>
-                                    <a href="/edit-kec" class="btn btn-primary tombol">Set Role</a>
                                     <form action="/user-hapus" method="post" class="d-inline">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $item->id }}">

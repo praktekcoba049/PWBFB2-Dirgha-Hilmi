@@ -20,34 +20,28 @@ class LoginController extends Controller
     }
 
     public function dataPetugas(Request $request){
-        $user = new Pengguna;
-        if($request->password1 == $request->password2){
-            $user->ID_POSYANDU = $request->id_posyandu;
-            $user->USERNAME = $request->username;
-            $user->PASSWORD = $request->password1;
-            if($user->save()){
-                echo "
-                <script>
-                    document.location.href = '/login-petugas';
-                    alert('Data berhasil ditambahkan');
-                </script>
-                ";
-            } else {
-                echo "
-                <script>
-                    document.location.href = '/reg-petugas';
-                    alert('Data gagal ditambahkan');
-                </script>
-                ";
-            }
-        }else {
-            echo "
-                <script>
-                    document.location.href = '/reg-petugas';
-                    alert('Password yang dimasukkan tidak sama');
-                </script>
-            ";
+        $request->validate([
+            'username' => 'required|unique:users|min:4',
+            'password' => 'required|min:5|max:255',
+        ]);
+        
+        $request->password = Hash::make($request->password);
+
+        $user = new User;
+        $user->USERNAME = $request->username;
+        $user->PASSWORD = $request->password;
+        if ($user->save()){
+            $userFound = User::where('username',$user->USERNAME)->first();
+            $role = Role::where('ROLE','PETUGAS')->first();
+            $userRole = new UserRole;
+            $userRole->ID_USER = $userFound->id;
+            $userRole->ID_ROLE = $role->ID_ROLE;
+            if ($userRole->save()){
+                return redirect('/login-petugas')->with('success', 'Berhasil registrasi, silahkan login!');
+            } else
+            return back()->with('regisError', 'Registrasi gagal!');
         }
+        return back()->with('regisError', 'Registrasi gagal!');
     }
 
     public function loginPetugas(){
@@ -55,8 +49,22 @@ class LoginController extends Controller
     }
 
     public function petugasCek(Request $request){
-        $user = Pengguna::where('username',$request->username)->first();
-        return view('petugas/home');
+        $credentials = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+        $userFound = User::where('username',$request->username)->first();
+        $userRoleFound = UserRole::where('ID_USER',$userFound->id)->first();
+        $roleFound = Role::where('ROLE','PETUGAS')->first();
+        if ($userRoleFound->ID_ROLE == $roleFound->ID_ROLE){
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+    
+                return redirect()->intended('/petugas');
+            } else
+            return back()->with('loginError', 'Login gagal');
+        } else
+        return back()->with('loginError', 'Anda bukan petugas');
     }
 
     public function authenticate(Request $request){
@@ -72,13 +80,56 @@ class LoginController extends Controller
         return back()->with('loginError', 'Login Failed!');
     }
 
+    public function regAdmin(){
+        return view('login/admin/registrasi');
+    }
+
+    public function dataAdmin(Request $request){
+        $request->validate([
+                'username' => 'required|unique:users|min:4',
+                'password' => 'required|min:5|max:255',
+        ]);
+        
+        $request->password = Hash::make($request->password);
+
+        $user = new User;
+        $user->USERNAME = $request->username;
+        $user->PASSWORD = $request->password;
+        if ($user->save()){
+            $userFound = User::where('username',$user->USERNAME)->first();
+            $role = Role::where('ROLE','ADMIN')->first();
+            $userRole = new UserRole;
+            $userRole->ID_USER = $userFound->id;
+            $userRole->ID_ROLE = $role->ID_ROLE;
+            if ($userRole->save()){
+                return redirect('/login-admin')->with('success', 'Berhasil registrasi, silahkan login!');
+            } else
+            return back()->with('regisError', 'Registrasi gagal!');
+        }
+        return back()->with('regisError', 'Registrasi gagal!');
+    }
+
     public function loginAdmin(){
         return view('login/admin/login');
     }
 
     public function adminCek(Request $request){
-        $user = Pengguna::where('username',$request->username)->first();
-        return redirect('/home-master');
+        $credentials = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+        $userFound = User::where('username',$request->username)->first();
+        $userRoleFound = UserRole::where('ID_USER',$userFound->id)->first();
+        $roleFound = Role::where('ROLE','ADMIN')->first();
+        if ($userRoleFound->ID_ROLE == $roleFound->ID_ROLE){
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+    
+                return redirect()->intended('/home-master');
+            } else
+            return back()->with('loginError', 'Login gagal');
+        } else
+        return back()->with('loginError', 'Anda bukan admin super');
     }
 
     public function regOrtu(){
@@ -87,34 +138,28 @@ class LoginController extends Controller
     }
 
     public function dataOrtu(Request $request){
-        $user = new Pengguna;
-        if($request->password1 == $request->password2){
-            $user->ID_POSYANDU = $request->id_posyandu;
-            $user->USERNAME = $request->username;
-            $user->PASSWORD = $request->password1;
-            if($user->save()){
-                echo "
-                <script>
-                    document.location.href = '/login-ortu';
-                    alert('Data berhasil ditambahkan');
-                </script>
-                ";
-            } else {
-                echo "
-                <script>
-                    document.location.href = '/reg-ortu';
-                    alert('Data gagal ditambahkan');
-                </script>
-                ";
-            }
-        }else {
-            echo "
-                <script>
-                    document.location.href = '/reg-ortu';
-                    alert('Password yang dimasukkan tidak sama');
-                </script>
-            ";
+        $request->validate([
+            'username' => 'required|unique:users|min:4',
+            'password' => 'required|min:5|max:255',
+        ]);
+        
+        $request->password = Hash::make($request->password);
+
+        $user = new User;
+        $user->USERNAME = $request->username;
+        $user->PASSWORD = $request->password;
+        if ($user->save()){
+            $userFound = User::where('username',$user->USERNAME)->first();
+            $role = Role::where('ROLE','ORANGTUA')->first();
+            $userRole = new UserRole;
+            $userRole->ID_USER = $userFound->id;
+            $userRole->ID_ROLE = $role->ID_ROLE;
+            if ($userRole->save()){
+                return redirect('/login-ortu')->with('success', 'Berhasil registrasi, silahkan login!');
+            } else
+            return back()->with('regisError', 'Registrasi gagal!');
         }
+        return back()->with('regisError', 'Registrasi gagal!');
     }
 
     public function loginOrtu(){
@@ -122,8 +167,22 @@ class LoginController extends Controller
     }
 
     public function ortuCek(Request $request){
-        $user = Pengguna::where('username',$request->username)->first();
-        return view('ortu/home');
+        $credentials = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+        $userFound = User::where('username',$request->username)->first();
+        $userRoleFound = UserRole::where('ID_USER',$userFound->id)->first();
+        $roleFound = Role::where('ROLE','ORANGTUA')->first();
+        if ($userRoleFound->ID_ROLE == $roleFound->ID_ROLE){
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+    
+                return redirect()->intended('/orangtua');
+            } else
+            return back()->with('loginError', 'Login gagal');
+        } else
+        return back()->with('loginError', 'Anda bukan orang tua balita');
     }
 
     public function registrasi(){
@@ -142,8 +201,10 @@ class LoginController extends Controller
         $user = new User;
         $user->USERNAME = $request->username;
         $user->PASSWORD = $request->password;
-        $user->save();
-        return redirect('/login')->with('success', 'Berhasil registrasi, silahkan login!');
+        if ($user->save()){
+            return redirect('/login')->with('success', 'Berhasil registrasi, silahkan login!');
+        }
+        return back()->with('regisError', 'Registrasi gagal!');
     }
 
     public function login(){
@@ -163,6 +224,16 @@ class LoginController extends Controller
         }
 
         return back()->with('loginError', 'Login gagal');
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 
 }

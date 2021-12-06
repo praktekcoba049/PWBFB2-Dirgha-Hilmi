@@ -9,10 +9,16 @@
                 <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                 <div class="col-lg-6">
                     <div class="p-5">
+                        @if (session()->has('regisError'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('regisError') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Register Now!</h1>
                         </div>
-                        <form action="/registrasi" method="post">
+                        <form action="/reg-petugas" method="post">
                             @csrf
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
@@ -29,7 +35,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="/login">Already have an account? Login!</a>
+                            <a class="small" href="/login-petugas">Already have an account? Login!</a>
                         </div>
                     </div>
                 </div>

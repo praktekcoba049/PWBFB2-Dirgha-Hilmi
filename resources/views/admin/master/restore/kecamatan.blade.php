@@ -19,7 +19,19 @@
                     <a href="/kecamatan" class="btn btn-primary tombol">Kembali</a>
                 </div>
             </div>
-        </div>   
+        </div>  
+        @if (session()->has('restoreError'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('restoreError') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif 
+        @if (session()->has('deleteError'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('deleteError') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -45,6 +57,13 @@
                                         <input type="hidden" name="id" value="{{ $item->ID_KECAMATAN }}">
                                         <button class="btn btn-success tombol border-0">
                                             Restore
+                                        </button>
+                                    </form>
+                                    <form action="/delete-permanent-kecamatan" method="post" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $item->ID_KECAMATAN }}">
+                                        <button class="btn btn-danger tombol border-0" onclick="return confirm('Akan menghapus data penrmanen?');">
+                                            Hapus
                                         </button>
                                     </form>
                                 </td>

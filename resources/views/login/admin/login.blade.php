@@ -9,10 +9,7 @@
                 <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                 <div class="col-lg-6">
                     <div class="p-5">
-                        <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Log In</h1>
-                        </div>
-                        @if (session()->has('succes'))
+                        @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -24,7 +21,10 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
-                        <form action="/ortu-cek" method="post">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Log In</h1>
+                        </div>
+                        <form action="/admin-cek" method="post">
                             @csrf
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user text-center" id="username"
@@ -44,7 +44,7 @@
                             <a class="small" href="forgot-password.html">Forgot Password?</a>
                         </div>
                         <div class="text-center">
-                            <a class="small" href="/reg-ortu">Haven't an account? Register!</a>
+                            <a class="small" href="/reg-admin">Haven't an account? Register!</a>
                         </div>
                     </div>
                 </div>

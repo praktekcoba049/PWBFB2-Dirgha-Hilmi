@@ -28,14 +28,17 @@
   <!-- Template Main CSS File -->
   <link href="assets_LP/css/style.css" rel="stylesheet">
 
-  <!-- Custom fonts for this template-->
+  <!-- Custom fonts for this template -->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
       href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
       rel="stylesheet">
 
-  <!-- Custom styles for this template-->
+  <!-- Custom styles for this template -->
   <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Vesperr - v4.5.0
@@ -62,12 +65,17 @@
           <li><a class="nav-link scrollto active" href="#home">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li class="dropdown"><a class="getstarted scrollto" href="#"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="#"><span>Data Master</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/login-admin">Admin Super</a></li>
-              <li><a href="/login-petugas">Petugas</a></li>
-              <li><a href="/login-ortu">Orangtua</a></li>
+              <li><a href="/kecamatan">Kecamatan</a></li>
+              <li><a href="/kelurahan">Kelurahan</a></li>
+              <li><a href="/posyandu">Posyandu</a></li>
+              <li><a href="/role">Role</a></li>
+              <li><a href="/balita">Balita</a></li>
             </ul>
+          </li>
+          <li><a class="nav-link scrollto" href="/user">Kelola User</a></li>
+          <li class="nav-link scrollto"><a class="getstarted scrollto" href="#"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
           </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -78,13 +86,17 @@
 
   <main id="main">
 
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-        @yield('container')
+                @yield('container')
 
+            <div id="content">
+            <!-- /.container-fluid -->
+        <div id="content">
     </div>
-    <!-- /.container-fluid -->
 
   </main><!-- End #main -->
 
@@ -130,15 +142,17 @@
   <!-- Template Main JS File -->
   <script src="assets_LP/js/main.js"></script>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom fonts for this template -->
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
 
-  <!-- Core plugin JavaScript-->
-  <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Custom styles for this template -->
+  <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
 
-  <!-- Custom scripts for all pages-->
-  <script src="assets/js/sb-admin-2.min.js"></script>
+  <!-- Custom styles for this page -->
+  <link href="assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </body>
 

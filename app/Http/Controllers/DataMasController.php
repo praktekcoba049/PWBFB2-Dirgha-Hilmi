@@ -13,8 +13,8 @@ use Illuminate\Http\Request;
 
 class DataMasController extends Controller
 {
-    public function home(){
-
+    public function homeMaster(){
+        return view('admin/master/home');
     }
 
     public function kecamatan(){
@@ -31,19 +31,9 @@ class DataMasController extends Controller
         $kecamatan = new Kecamatan;
         $kecamatan->KECAMATAN = $request->kecamatan;
         if($kecamatan->save()){
-            echo "
-                <script>
-                    alert('Data berhasil ditambahkan');
-                    document.location.href = '/kecamatan'
-                </script>
-            ";
+            return redirect('/kecamatan')->with('tambahSuccess', 'Data berhasil ditambahkan');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal ditambahkan');
-                    document.location.href = '/tambah-kec'
-                </script>
-            ";
+            return back()->with('tambahError', 'Data gagal ditambahkan');
         }
     }
 
@@ -57,19 +47,9 @@ class DataMasController extends Controller
         if($kecamatan->update([
             'KECAMATAN'=>$request->kecamatan
             ])){
-            echo "
-                <script>
-                    alert('Data berhasil dirubah');
-                    document.location.href = '/kecamatan'
-                </script>
-            ";
+            return redirect('/kecamatan')->with('updateSuccess', 'Data berhasil dirubah');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal dirubah');
-                    document.location.href = '/edit-kec'
-                </script>
-            ";
+            return back()->with('updateError', 'Data gagal dirubah');
         }
     }
 
@@ -77,19 +57,9 @@ class DataMasController extends Controller
         //return $request;
         $kecamatan = Kecamatan::where('ID_KECAMATAN',$request->id);
         if($kecamatan->delete()){
-            echo "
-                <script>
-                    alert('Data berhasil dihapus');
-                    document.location.href = '/kecamatan'
-                </script>
-            ";
+            return back()->with('deleteSuccess', 'Data berhasil dihapus');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal didihapus');
-                    document.location.href = '/kecamatan'
-                </script>
-            ";
+            return back()->with('deleteError', 'Data gagal dihapus');
         }
     }
 
@@ -101,19 +71,19 @@ class DataMasController extends Controller
     public function restoreKecamatan(Request $request){
         $kecamatan = Kecamatan::where('ID_KECAMATAN',$request->id);
         if($kecamatan->restore()){
-            echo "
-                <script>
-                    alert('Data berhasil dikembalikan');
-                    document.location.href = '/kecamatan'
-                </script>
-            ";
+            return redirect('/kecamatan')->with('restoreSuccess', 'Data berhasil dikembalikan');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal dikembalikan');
-                    document.location.href = '/kecamatan-restore'
-                </script>
-            ";
+            return back()->with('restoreError', 'Data gagal dikembalikan');
+        }
+    }
+
+    public function forceDelKecamatan(Request $request){
+        //return $request;
+        $kecamatan = Kecamatan::where('ID_KECAMATAN',$request->id);
+        if($kecamatan->forceDelete()){
+            return redirect('/kecamatan')->with('deleteSuccess', 'Data berhasil dihapus');
+        } else {
+            return back()->with('deleteError', 'Data gagal dihapus');
         }
     }
 
@@ -135,19 +105,9 @@ class DataMasController extends Controller
         $kelurahan->ID_KECAMATAN = $request->ID_KECAMATAN;
         $kelurahan->KELURAHAN = $request->kelurahan;
         if($kelurahan->save()){
-            echo "
-                <script>
-                    alert('Data berhasil ditambahkan');
-                    document.location.href = '/kelurahan'
-                </script>
-            ";
+            return redirect('/kelurahan')->with('tambahSuccess', 'Data berhasil ditambahkan');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal ditambahkan');
-                    document.location.href = '/tambah-kel'
-                </script>
-            ";
+            return back()->with('tambahError', 'Data gagal ditambahkan');
         }
     }
 
@@ -163,19 +123,9 @@ class DataMasController extends Controller
             'ID_KECAMATAN'=>$request->ID_KECAMATAN,
             'KELURAHAN'=>$request->kelurahan
             ])){
-            echo "
-                <script>
-                    alert('Data berhasil dirubah');
-                    document.location.href = '/kelurahan'
-                </script>
-            ";
+            return redirect('/kelurahan')->with('updateSuccess', 'Data berhasil dirubah');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal dirubah');
-                    document.location.href = '/edit-kel'
-                </script>
-            ";
+            return back()->with('updateError', 'Data gagal dirubah');
         }
     }
 
@@ -183,19 +133,9 @@ class DataMasController extends Controller
         //return $request;
         $kelurahan = Kelurahan::where('ID_KELURAHAN',$request->id);
         if($kelurahan->delete()){
-            echo "
-                <script>
-                    alert('Data berhasil dihapus');
-                    document.location.href = '/kelurahan'
-                </script>
-            ";
+            return back()->with('deleteSuccess', 'Data berhasil dihapus');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal didihapus');
-                    document.location.href = '/kelurahan'
-                </script>
-            ";
+            return back()->with('deleteError', 'Data gagal dihapus');
         }
     }
 
@@ -207,19 +147,19 @@ class DataMasController extends Controller
     public function restoreKelurahan(Request $request){
         $kelurahan = Kelurahan::where('ID_KELURAHAN',$request->id);
         if($kelurahan->restore()){
-            echo "
-                <script>
-                    alert('Data berhasil dikembalikan');
-                    document.location.href = '/kelurahan'
-                </script>
-            ";
+            return redirect('/kelurahan')->with('restoreSuccess', 'Data berhasil dikembalikan');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal dikembalikan');
-                    document.location.href = '/kelurahan-restore'
-                </script>
-            ";
+            return back()->with('restoreError', 'Data gagal dikembalikan');
+        }
+    }
+
+    public function forceDelKelurahan(Request $request){
+        //return $request;
+        $kelurahan = Kelurahan::where('ID_KELURAHAN',$request->id);
+        if($kelurahan->forceDelete()){
+            return redirect('/kelurahan')->with('deleteSuccess', 'Data berhasil dihapus');
+        } else {
+            return back()->with('deleteError', 'Data gagal dihapus');
         }
     }
 
@@ -240,19 +180,9 @@ class DataMasController extends Controller
         $posyandu->NAMA_POSYANDU = $request->posyandu;
         $posyandu->ALAMAT_POSYANDU = $request->alamat;
         if($posyandu->save()){
-            echo "
-                <script>
-                    alert('Data berhasil ditambahkan');
-                    document.location.href = '/posyandu'
-                </script>
-            ";
+            return redirect('/posyandu')->with('tambahSuccess', 'Data berhasil ditambahkan');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal ditambahkan');
-                    document.location.href = '/tambah-pos'
-                </script>
-            ";
+            return back()->with('tambahError', 'Data gagal ditambahkan');
         }
     }
 
@@ -269,19 +199,9 @@ class DataMasController extends Controller
             'NAMA_POSYANDU'=>$request->posyandu,
             'ALAMAT_POSYANDU'=>$request->alamat
             ])){
-            echo "
-                <script>
-                    alert('Data berhasil dirubah');
-                    document.location.href = '/posyandu'
-                </script>
-            ";
+            return redirect('/posyandu')->with('updateSuccess', 'Data berhasil dirubah');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal dirubah');
-                    document.location.href = '/edit-pos'
-                </script>
-            ";
+            return back()->with('updateError', 'Data gagal dirubah');
         }
     }
 
@@ -289,19 +209,9 @@ class DataMasController extends Controller
         //return $request;
         $posyandu = Posyandu::where('ID_POSYANDU',$request->id);
         if($posyandu->delete()){
-            echo "
-                <script>
-                    alert('Data berhasil dihapus');
-                    document.location.href = '/posyandu'
-                </script>
-            ";
+            return back()->with('deleteSuccess', 'Data berhasil dihapus');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal didihapus');
-                    document.location.href = '/posyandu'
-                </script>
-            ";
+            return back()->with('deleteError', 'Data gagal dihapus');
         }
     }
 
@@ -313,19 +223,19 @@ class DataMasController extends Controller
     public function restorePosyandu(Request $request){
         $posyandu = Posyandu::where('ID_POSYANDU',$request->id);
         if($posyandu->restore()){
-            echo "
-                <script>
-                    alert('Data berhasil dikembalikan');
-                    document.location.href = '/posyandu'
-                </script>
-            ";
+            return redirect('/posyandu')->with('restoreSuccess', 'Data berhasil dikembalikan');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal dikembalikan');
-                    document.location.href = '/posyandu-restore'
-                </script>
-            ";
+            return back()->with('restoreError', 'Data gagal dikembalikan');
+        }
+    }
+
+    public function forceDelPosyandu(Request $request){
+        //return $request;
+        $posyandu = Posyandu::where('ID_POSYANDU',$request->id);
+        if($posyandu->forceDelete()){
+            return redirect('/posyandu')->with('deleteSuccess', 'Data berhasil dihapus');
+        } else {
+            return back()->with('deleteError', 'Data gagal dihapus');
         }
     }
 
@@ -343,19 +253,9 @@ class DataMasController extends Controller
         $role = new Role;
         $role->ROLE = $request->role;
         if($role->save()){
-            echo "
-                <script>
-                    alert('Data berhasil ditambahkan');
-                    document.location.href = '/role'
-                </script>
-            ";
+            return redirect('/role')->with('tambahSuccess', 'Data berhasil ditambahkan');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal ditambahkan');
-                    document.location.href = '/tambah-role'
-                </script>
-            ";
+            return back()->with('tambahError', 'Data gagal ditambahkan');
         }
     }
 
@@ -369,19 +269,9 @@ class DataMasController extends Controller
         if($role->update([
             'ROLE'=>$request->role
             ])){
-            echo "
-                <script>
-                    alert('Data berhasil dirubah');
-                    document.location.href = '/role'
-                </script>
-            ";
+            return redirect('/role')->with('updateSuccess', 'Data berhasil dirubah');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal dirubah');
-                    document.location.href = '/edit-role'
-                </script>
-            ";
+            return back()->with('updateError', 'Data gagal dirubah');
         }
     }
 
@@ -389,19 +279,9 @@ class DataMasController extends Controller
         //return $request;
         $role = Role::where('ID_ROLE',$request->id);
         if($role->delete()){
-            echo "
-                <script>
-                    alert('Data berhasil dihapus');
-                    document.location.href = '/role'
-                </script>
-            ";
+            return back()->with('deleteSuccess', 'Data berhasil dihapus');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal didihapus');
-                    document.location.href = '/role'
-                </script>
-            ";
+            return back()->with('deleteError', 'Data gagal dihapus');
         }
     }
 
@@ -413,19 +293,19 @@ class DataMasController extends Controller
     public function restoreRole(Request $request){
         $role = Role::where('ID_ROLE',$request->id);
         if($role->restore()){
-            echo "
-                <script>
-                    alert('Data berhasil dikembalikan');
-                    document.location.href = '/role'
-                </script>
-            ";
+            return redirect('/role')->with('restoreSuccess', 'Data berhasil dikembalikan');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal dikembalikan');
-                    document.location.href = '/role-restore'
-                </script>
-            ";
+            return back()->with('restoreError', 'Data gagal dikembalikan');
+        }
+    }
+
+    public function forceDelRole(Request $request){
+        //return $request;
+        $role = Role::where('ID_ROLE',$request->id);
+        if($role->forceDelete()){
+            return redirect('/role')->with('deleteSuccess', 'Data berhasil dihapus');
+        } else {
+            return back()->with('deleteError', 'Data gagal dihapus');
         }
     }
 
@@ -447,23 +327,14 @@ class DataMasController extends Controller
             'ID_POSYANDU'=>$request->id_posyandu,
             'NAMA_BALITA'=>$request->nama_balita,
             'NIK_ORANG_TUA'=>$request->nik_orang_tua,
+            'NAMA_ORANG_TUA'=>$request->nama_orang_tua,
             'TGL_LAHIR_BALITA'=>$request->tgl_lahir_balita,
             'JENIS_KELAMIN_BALITA'=>$request->jenis_kelamin_balita,
             'STATUS'=>$request->status
             ])){
-            echo "
-                <script>
-                    alert('Data berhasil dirubah');
-                    document.location.href = '/balita'
-                </script>
-            ";
+            return redirect('/balita')->with('updateSuccess', 'Data berhasil dirubah');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal dirubah');
-                    document.location.href = '/edit-balita'
-                </script>
-            ";
+            return back()->with('updateError', 'Data gagal dirubah');
         }
     }
 
@@ -471,19 +342,33 @@ class DataMasController extends Controller
         //return $request;
         $balita = Balita::where('ID_BALITA',$request->id);
         if($balita->delete()){
-            echo "
-                <script>
-                    alert('Data berhasil dihapus');
-                    document.location.href = '/balita'
-                </script>
-            ";
+            return back()->with('deleteSuccess', 'Data berhasil dihapus');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal didihapus');
-                    document.location.href = '/balita'
-                </script>
-            ";
+            return back()->with('deleteError', 'Data gagal dihapus');
+        }
+    }
+
+    public function balitaRestore(){
+        $balita = Balita::onlyTrashed()->get();
+        return view('admin/master/restore/balita', ['balita'=>$balita]);
+    }
+
+    public function restoreBalita(Request $request){
+        $balita = Balita::where('ID_BALITA',$request->id);
+        if($balita->restore()){
+            return redirect('/balita')->with('restoreSuccess', 'Data berhasil dikembalikan');
+        } else {
+            return back()->with('restoreError', 'Data gagal dikembalikan');
+        }
+    }
+
+    public function forceDelBalita(Request $request){
+        //return $request;
+        $balita = Balita::where('ID_BALITA',$request->id);
+        if($balita->forceDelete()){
+            return redirect('/balita')->with('deleteSuccess', 'Data berhasil dihapus');
+        } else {
+            return back()->with('deleteError', 'Data gagal dihapus');
         }
     }
 
@@ -491,5 +376,39 @@ class DataMasController extends Controller
         $users = User::all();
         //return view('master/posyandu');
         return view('admin/master/user', ['users'=>$users]);
+    }
+
+    public function hapusUser(Request $request){
+        //return $request;
+        $user = User::where('id',$request->id);
+        if($user->delete()){
+            return back()->with('deleteSuccess', 'Data berhasil dihapus');
+        } else {
+            return back()->with('deleteError', 'Data gagal dihapus');
+        }
+    }
+
+    public function userRestore(){
+        $user = User::onlyTrashed()->get();
+        return view('admin/master/restore/user', ['user'=>$user]);
+    }
+
+    public function restoreUser(Request $request){
+        $user = User::where('id',$request->id);
+        if($user->restore()){
+            return redirect('/user')->with('restoreSuccess', 'Data berhasil dikembalikan');
+        } else {
+            return back()->with('restoreError', 'Data gagal dikembalikan');
+        }
+    }
+
+    public function forceDelUser(Request $request){
+        //return $request;
+        $user = User::where('id',$request->id);
+        if($user->forceDelete()){
+            return redirect('/user')->with('deleteSuccess', 'Data berhasil dihapus');
+        } else {
+            return back()->with('deleteError', 'Data gagal dihapus');
+        }
     }
 }

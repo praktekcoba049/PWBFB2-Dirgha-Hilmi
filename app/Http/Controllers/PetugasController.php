@@ -14,6 +14,10 @@ class PetugasController extends Controller
         $balita = Balita::all();
         return view('petugas/balita', ['balita'=>$balita]);
     }
+
+    public function petugas(){
+        return view('petugas/home');
+    }
     
     public function balita(){
         $balita = Balita::all();

@@ -4,11 +4,20 @@
 
 <div class="">
     <div class="p-5">
+        @if (session()->has('updateError'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('updateError') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="text-center">
             <h1 class="h4 text-gray-900 mb-4">Edit Balita</h1>
         </div>
         <form action="/balita-edit" method="post">
             @csrf
+            <div class="form-group">
+                <input type="hidden" name="id" value="{{ $balita->ID_BALITA }}">
+            </div>
             <div class="form-group">
                 <select name="id_posyandu" class="form-control text-center">
                     @foreach ($posyandu as $item)

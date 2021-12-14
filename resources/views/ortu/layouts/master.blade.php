@@ -61,7 +61,7 @@
 
             <!-- Nav Item - Master Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/petugas" >
+                <a class="nav-link collapsed" href="/orangtua" >
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Aplikasi</span>
                 </a>

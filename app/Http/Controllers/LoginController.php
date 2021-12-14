@@ -53,7 +53,7 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        $userFound = User::where('username',$request->username)->first();
+        if ($userFound = User::where('username',$request->username)->first()){
         $userRoleFound = UserRole::where('ID_USER',$userFound->id)->first();
         $roleFound = Role::where('ROLE','PETUGAS')->first();
         if ($userRoleFound->ID_ROLE == $roleFound->ID_ROLE){
@@ -65,6 +65,8 @@ class LoginController extends Controller
             return back()->with('loginError', 'Login gagal');
         } else
         return back()->with('loginError', 'Anda bukan petugas');
+        } else 
+        return back()->with('loginError', 'Login gagal');
     }
 
     public function authenticate(Request $request){
@@ -75,7 +77,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended('/home-master');
+            return redirect()->intended('/petugas');
         }
         return back()->with('loginError', 'Login Failed!');
     }
@@ -118,7 +120,7 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        $userFound = User::where('username',$request->username)->first();
+        if ($userFound = User::where('username',$request->username)->first()){
         $userRoleFound = UserRole::where('ID_USER',$userFound->id)->first();
         $roleFound = Role::where('ROLE','ADMIN')->first();
         if ($userRoleFound->ID_ROLE == $roleFound->ID_ROLE){
@@ -130,6 +132,8 @@ class LoginController extends Controller
             return back()->with('loginError', 'Login gagal');
         } else
         return back()->with('loginError', 'Anda bukan admin super');
+        } else 
+        return back()->with('loginError', 'Login gagal');
     }
 
     public function regOrtu(){
@@ -171,7 +175,7 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        $userFound = User::where('username',$request->username)->first();
+        if ($userFound = User::where('username',$request->username)->first()){
         $userRoleFound = UserRole::where('ID_USER',$userFound->id)->first();
         $roleFound = Role::where('ROLE','ORANGTUA')->first();
         if ($userRoleFound->ID_ROLE == $roleFound->ID_ROLE){
@@ -183,6 +187,8 @@ class LoginController extends Controller
             return back()->with('loginError', 'Login gagal');
         } else
         return back()->with('loginError', 'Anda bukan orang tua balita');
+        } else 
+        return back()->with('loginError', 'Login gagal');
     }
 
     public function registrasi(){

@@ -36,8 +36,12 @@
                         <form action="/petugas-hposyandu-simpan" method="post">
                             @csrf
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
-                                        placeholder="ID Balita" name="id_balita">
+                                <select name="id_balita" class="form-control text-center">
+                                    <option value="">- Pilih Balita -</option>
+                                    @foreach ($balita as $item)
+                                        <option value="{{ $item->ID_BALITA }}">{{ $item->NAMA_BALITA }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <input type="date" class="form-control form-control-user text-center" id="exampleFirstName"

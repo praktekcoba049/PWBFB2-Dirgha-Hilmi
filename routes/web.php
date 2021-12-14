@@ -5,6 +5,7 @@ use App\Http\Controllers\HistoriController;
 use App\Http\Controllers\DataMasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\OrangtuaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +99,7 @@ Route::post('/delete-permanent-user', [DataMasController::class, 'forceDelUser']
 
 // Histori
 Route::get('/hposyandu', [HistoriController::class, 'hpos'])->middleware('auth');
+Route::post('/cari-per-posyandu', [HistoriController::class, 'hposCari']);
 
 Route::get('/hbalita', [HistoriController::class, 'show'])->middleware('auth');
 
@@ -110,9 +112,10 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login/login');
 });
-*/
+
 Route::get('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'cekLogin']);
+*/
 
 Route::get('/login-admin', [LoginController::class, 'loginAdmin'])->middleware('guest');
 Route::post('/admin-cek', [LoginController::class, 'adminCek']);
@@ -125,8 +128,8 @@ Route::post('/ortu-cek', [LoginController::class, 'ortuCek']);
 
 
 // registrasi
-Route::get('/registrasi', [LoginController::class, 'registrasi'])->middleware('guest');
-Route::post('/registrasi', [LoginController::class, 'register']);
+// Route::get('/registrasi', [LoginController::class, 'registrasi'])->middleware('guest');
+// Route::post('/registrasi', [LoginController::class, 'register']);
 
 Route::get('/reg-admin', [LoginController::class, 'regAdmin'])->middleware('guest');
 Route::post('/reg-admin', [LoginController::class, 'dataAdmin']);
@@ -146,6 +149,7 @@ Route::get('/petugas', [PetugasController::class, 'petugas'])->middleware('auth'
 Route::get('/petugas-balita', [PetugasController::class, 'balita'])->middleware('auth');
 
 Route::get('/petugas-hposyandu', [PetugasController::class, 'hposyandu'])->middleware('auth');
+Route::post('/petugas-hposyandu-cari', [PetugasController::class, 'hposCari']);
 
 //Petugas Tambah Data
 Route::get('/petugas-balita-tambah', [PetugasController::class, 'tambahBalita'])->middleware('auth');
@@ -155,6 +159,5 @@ Route::get('/petugas-hposyandu-tambah', [PetugasController::class, 'tambahHpos']
 Route::post('/petugas-hposyandu-simpan', [PetugasController::class, 'simpanHpos']);
 
 // Orang Tua
-Route::get('/orangtua', function () {
-    return view('ortu/home');
-})->middleware('auth');
+Route::get('/orangtua', [OrangtuaController::class, 'index'])->middleware('auth');
+Route::post('/cari-his-balita', [OrangtuaController::class, 'hposCari']);

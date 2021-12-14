@@ -25,7 +25,7 @@ class AddDeletedAtToUserRoleTable extends Migration
      */
     public function down()
     {
-        Schema::table('user_eole', function (Blueprint $table) {
+        Schema::table('user_role', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }

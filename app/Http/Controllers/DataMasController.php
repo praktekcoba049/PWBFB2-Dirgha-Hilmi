@@ -100,10 +100,15 @@ class DataMasController extends Controller
     }
 
     public function dataKel(Request $request){
-        //return $request;
+        $request->validate([
+            'ID_KECAMATAN' => 'required',
+            'kelurahan' => 'required|max:100',
+        ]);
+
         $kelurahan = new Kelurahan;
         $kelurahan->ID_KECAMATAN = $request->ID_KECAMATAN;
         $kelurahan->KELURAHAN = $request->kelurahan;
+        
         if($kelurahan->save()){
             return redirect('/kelurahan')->with('tambahSuccess', 'Data berhasil ditambahkan');
         } else {
@@ -175,12 +180,13 @@ class DataMasController extends Controller
     }
 
     public function dataPos(Request $request){
+        $kelurahan = Kelurahan::where('ID_KELURAHAN', $request->ID_KELURAHAN)->first();
         $posyandu = new Posyandu;
         $posyandu->ID_KELURAHAN = $request->ID_KELURAHAN;
         $posyandu->NAMA_POSYANDU = $request->posyandu;
-        $posyandu->ALAMAT_POSYANDU = $request->alamat;
+        $posyandu->ALAMAT_POSYANDU = $request->alamat.' '.$kelurahan->KELURAHAN;
         if($posyandu->save()){
-            return redirect('/posyandu')->with('tambahSuccess', 'Data berhasil ditambahkan');
+            return redirect('/hposyandu')->with('tambahSuccess', 'Data berhasil ditambahkan');
         } else {
             return back()->with('tambahError', 'Data gagal ditambahkan');
         }

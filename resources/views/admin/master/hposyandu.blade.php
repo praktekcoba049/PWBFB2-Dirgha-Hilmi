@@ -13,6 +13,31 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
         </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 pt-4 pl-3">
+                <form action="/cari-per-posyandu" method="post">
+                    @csrf
+                    <div class="text-center">
+                        <h3>Filter</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <select name="ID_POSYANDU" class="form-control text-center">
+                                <option value="{{ $posyanduNow->ID_POYSANDU }}">{{ $posyanduNow->NAMA_POSYANDU }}</option>
+                                @foreach ($posyandu as $item)
+                                    <option value="{{ $item->ID_POSYANDU }}">{{ $item->NAMA_POSYANDU }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" name="submit" class="btn btn-success btn-user btn-block">
+                                Cari
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -73,6 +73,9 @@
                     <tbody>
                         @foreach ($kelurahan as $item)
                             <tr>
+                                <?php
+                                    $kecamatan->where('ID_KECAMATAN', $item->ID_KECAMATAN);
+                                ?>
                                 <td>{{ $item->ID_KECAMATAN }}</td>
                                 <td>{{ $item->KELURAHAN }}</td>
                                 <td>

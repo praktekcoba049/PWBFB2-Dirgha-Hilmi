@@ -16,8 +16,13 @@
         <form action="/kec-store" method="post">
             @csrf
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="kecamatan"
+                <input type="text" class="form-control form-control-user text-center @error('kecamatan') is-invalid @enderror" id="kecamatan"
                     placeholder="Nama Kecamatan" name="kecamatan">
+                @error('kecamatan')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">

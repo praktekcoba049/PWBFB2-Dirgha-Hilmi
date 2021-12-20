@@ -1,4 +1,4 @@
-@extends('../admin/layouts/master')
+@extends('../petugas/layouts/master')
 
 @section('container')
 
@@ -16,8 +16,8 @@
                     <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="/tambah-user" class="btn btn-primary tombol">Tambah Data</a>
-                    <a href="/user-restore" class="btn btn-warning tombol">Restore Data</a>
+                    <a href="/petugas-user-tambah" class="btn btn-primary tombol">Tambah Data</a>
+                    <a href="/petugas-user-restore" class="btn btn-warning tombol">Restore Data</a>
                 </div>
             </div>
         </div>

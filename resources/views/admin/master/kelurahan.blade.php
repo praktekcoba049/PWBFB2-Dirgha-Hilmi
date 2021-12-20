@@ -73,10 +73,7 @@
                     <tbody>
                         @foreach ($kelurahan as $item)
                             <tr>
-                                <?php
-                                    $kecamatan->where('ID_KECAMATAN', $item->ID_KECAMATAN);
-                                ?>
-                                <td>{{ $item->ID_KECAMATAN }}</td>
+                                <td>{{ $item->kecamatan }}</td>
                                 <td>{{ $item->KELURAHAN }}</td>
                                 <td>
                                     <form action="/edit-kel" method="post" class="d-inline">

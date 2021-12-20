@@ -11,7 +11,4 @@ class Kecamatan extends Model
     use SoftDeletes;
     protected $table = 'kecamatan';
 
-    public function tambah(){
-        
-    }
 }

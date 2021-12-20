@@ -80,6 +80,7 @@
                         <h6 class="collapse-header">Data Posyandu:</h6>
                         <a class="collapse-item" href="/petugas-balita">Balita</a>
                         <a class="collapse-item" href="/petugas-hposyandu">History Posyandu</a>
+                        <a class="collapse-item" href="/petugas-user">Kelola User</a>
                     </div>
                 </div>
             </li>

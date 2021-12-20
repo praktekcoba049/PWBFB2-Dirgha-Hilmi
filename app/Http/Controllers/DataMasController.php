@@ -7,9 +7,10 @@ use App\Models\Masters\Kecamatan;
 use App\Models\Masters\Kelurahan;
 use App\Models\Masters\Posyandu;
 use App\Models\Masters\Balita;
-use App\Models\Masters\Pengguna;
+use App\Models\Masters\UserRole;
 use App\Models\Masters\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DataMasController extends Controller
 {
@@ -28,6 +29,10 @@ class DataMasController extends Controller
     }
 
     public function dataKec(Request $request){
+        $request->validate([
+            'kecamatan' => 'required|max:100',
+        ]);
+
         $kecamatan = new Kecamatan;
         $kecamatan->KECAMATAN = $request->kecamatan;
         if($kecamatan->save()){
@@ -43,6 +48,10 @@ class DataMasController extends Controller
     }
 
     public function simpanKec(Request $request){
+        $request->validate([
+            'kecamatan' => 'required|max:100',
+        ]);
+
         $kecamatan = Kecamatan::where('ID_KECAMATAN',$request->id);
         if($kecamatan->update([
             'KECAMATAN'=>$request->kecamatan
@@ -123,6 +132,11 @@ class DataMasController extends Controller
     }
 
     public function simpanKel(Request $request){
+        $request->validate([
+            'ID_KECAMATAN' => 'required',
+            'kelurahan' => 'required|max:100',
+        ]);
+        
         $kelurahan = Kelurahan::where('ID_KELURAHAN',$request->id);
         if($kelurahan->update([
             'ID_KECAMATAN'=>$request->ID_KECAMATAN,
@@ -180,6 +194,11 @@ class DataMasController extends Controller
     }
 
     public function dataPos(Request $request){
+        $request->validate([
+            'ID_KELURAHAN' => 'required',
+            'posyandu' => 'required|max:100',
+            'alamat' => 'required|max:100',
+        ]);
         $kelurahan = Kelurahan::where('ID_KELURAHAN', $request->ID_KELURAHAN)->first();
         $posyandu = new Posyandu;
         $posyandu->ID_KELURAHAN = $request->ID_KELURAHAN;
@@ -199,6 +218,11 @@ class DataMasController extends Controller
     }
 
     public function simpanPos(Request $request){
+        $request->validate([
+            'ID_KELURAHAN' => 'required',
+            'posyandu' => 'required|max:100',
+            'alamat' => 'required|max:100',
+        ]);
         $posyandu = Posyandu::where('ID_POSYANDU',$request->id);
         if($posyandu->update([
             'ID_KELURAHAN'=>$request->ID_KELURAHAN,
@@ -256,6 +280,9 @@ class DataMasController extends Controller
     }
 
     public function dataRole(Request $request){
+        $request->validate([
+            'role' => 'required|max:100',
+        ]);
         $role = new Role;
         $role->ROLE = $request->role;
         if($role->save()){
@@ -271,6 +298,9 @@ class DataMasController extends Controller
     }
 
     public function simpanRole(Request $request){
+        $request->validate([
+            'role' => 'required|max:100',
+        ]);
         $role = Role::where('ID_ROLE',$request->id);
         if($role->update([
             'ROLE'=>$request->role
@@ -328,6 +358,15 @@ class DataMasController extends Controller
     }
 
     public function simpanBalita(Request $request){
+        $request->validate([
+            'id_posyandu' => 'required',
+            'nama_balita' => 'required|max:120',
+            'nik_orang_tua' => 'required|min:16|max:16|numeric',
+            'nama_orang_tua' => 'required|max:120',
+            'tgl_lahir_balita' => 'required',
+            'jenis_kelamin_balita' => 'required',
+            'status' => 'required',
+        ]);
         $balita = Balita::where('ID_BALITA',$request->id);
         if($balita->update([
             'ID_POSYANDU'=>$request->id_posyandu,
@@ -382,6 +421,55 @@ class DataMasController extends Controller
         $users = User::all();
         //return view('master/posyandu');
         return view('admin/master/user', ['users'=>$users]);
+    }
+
+    public function tambahUser(){
+        $role = Role::all();
+        return view('admin/master/tambah/user', ['role'=>$role]);
+    }
+
+    public function dataUser(Request $request){
+        $request->validate([
+            'id_role' => 'required',
+            'username' => 'required|unique:users|min:3|max:20',
+            'password' => 'required',
+        ]);
+        $request->password = Hash::make($request->password);
+
+        $user = new User;
+        $user->USERNAME = $request->username;
+        $user->PASSWORD = $request->password;
+        if($user->save()){
+            $userFound = User::where('username',$user->USERNAME)->first();
+            $userRole = new UserRole;
+            $userRole->ID_USER = $userFound->id;
+            $userRole->ID_ROLE = $request->id_role;
+            if ($userRole->save()){
+                return redirect('/user')->with('success', 'Berhasil registrasi, silahkan login!');
+            } else
+            return back()->with('regisError', 'Registrasi gagal!');
+        } else {
+            return back()->with('tambahError', 'Data gagal ditambahkan');
+        }
+    }
+
+    public function editUser(Request $request){
+        $role = Role::where('ID_ROLE',$request->id)->first();
+        return view('admin/master/edit/role', ['role'=>$role]);
+    }
+
+    public function simpanUser(Request $request){
+        $request->validate([
+            'role' => 'required|max:100',
+        ]);
+        $role = Role::where('ID_ROLE',$request->id);
+        if($role->update([
+            'ROLE'=>$request->role
+            ])){
+            return redirect('/role')->with('updateSuccess', 'Data berhasil dirubah');
+        } else {
+            return back()->with('updateError', 'Data gagal dirubah');
+        }
     }
 
     public function hapusUser(Request $request){

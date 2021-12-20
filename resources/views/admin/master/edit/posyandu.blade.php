@@ -21,19 +21,34 @@
                     placeholder="ID Posyandu" name="id" value="{{ $posyandu->ID_POSYANDU }}">
             </div>
             <div class="form-group">
-                <select name="ID_KELURAHAN" class="form-control text-center">
+                <select name="ID_KELURAHAN" class="form-control text-center @error('ID_KELURAHAN') is-invalid @enderror">
                     @foreach ($kelurahan as $item)
                         <option value="{{ $item->ID_KELURAHAN }}">{{ $item->KELURAHAN }}</option>
                     @endforeach
                 </select>
+                @error('ID_KELURAHAN')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="posyanduIn"
+                <input type="text" class="form-control form-control-user text-center @error('posyandu') is-invalid @enderror" id="posyandu"
                     placeholder="Nama Posyandu" name="posyandu" value="{{ $posyandu->NAMA_POSYANDU }}">
+                @error('posyandu')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="alamat"
+                <input type="text" class="form-control form-control-user text-center @error('alamat') is-invalid @enderror" id="alamat"
                     placeholder="Alamat Posyandu" name="alamat" value="{{ $posyandu->ALAMAT_POSYANDU }}">
+                @error('alamat')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">

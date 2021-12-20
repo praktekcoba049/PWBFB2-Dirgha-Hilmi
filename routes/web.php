@@ -46,6 +46,9 @@ Route::post('/pos-store', [DataMasController::class, 'dataPos']);
 Route::get('/tambah-role', [DataMasController::class, 'tambahRole'])->middleware('auth');
 Route::post('/role-store', [DataMasController::class, 'dataRole']);
 
+Route::get('/tambah-user', [DataMasController::class, 'tambahUser'])->middleware('auth');
+Route::post('/user-store', [DataMasController::class, 'dataUser']);
+
 
 //Edit Data
 Route::post('/edit-kec', [DataMasController::class, 'editKec']);
@@ -131,15 +134,6 @@ Route::post('/ortu-cek', [LoginController::class, 'ortuCek']);
 // Route::get('/registrasi', [LoginController::class, 'registrasi'])->middleware('guest');
 // Route::post('/registrasi', [LoginController::class, 'register']);
 
-Route::get('/reg-admin', [LoginController::class, 'regAdmin'])->middleware('guest');
-Route::post('/reg-admin', [LoginController::class, 'dataAdmin']);
-
-Route::get('/reg-petugas', [LoginController::class, 'regPetugas'])->middleware('guest');
-Route::post('/reg-petugas', [LoginController::class, 'dataPetugas']);
-
-Route::get('/reg-ortu', [LoginController::class, 'regOrtu'])->middleware('guest');
-Route::post('/reg-ortu', [LoginController::class, 'dataOrtu']);
-
 // logout
 Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -151,12 +145,22 @@ Route::get('/petugas-balita', [PetugasController::class, 'balita'])->middleware(
 Route::get('/petugas-hposyandu', [PetugasController::class, 'hposyandu'])->middleware('auth');
 Route::post('/petugas-hposyandu-cari', [PetugasController::class, 'hposCari']);
 
+Route::get('/petugas-user', [PetugasController::class, 'user'])->middleware('auth');
+
 //Petugas Tambah Data
 Route::get('/petugas-balita-tambah', [PetugasController::class, 'tambahBalita'])->middleware('auth');
 Route::post('/petugas-balita-simpan', [PetugasController::class, 'simpanBalita']);
 
 Route::get('/petugas-hposyandu-tambah', [PetugasController::class, 'tambahHpos'])->middleware('auth');
 Route::post('/petugas-hposyandu-simpan', [PetugasController::class, 'simpanHpos']);
+
+Route::get('/petugas-user-tambah', [PetugasController::class, 'tambahUser'])->middleware('auth');
+Route::post('/petugas-user-simpan', [PetugasController::class, 'dataUser']);
+
+//Petugas Restore Data
+Route::get('/petugas-user-restore', [PetugasController::class, 'userRestore'])->middleware('auth');
+Route::post('/petugas-restore-user', [PetugasController::class, 'restoreUser']);
+Route::post('/petugas-delete-permanent-user', [PetugasController::class, 'forceDelUser']);
 
 // Orang Tua
 Route::get('/orangtua', [OrangtuaController::class, 'index'])->middleware('auth');

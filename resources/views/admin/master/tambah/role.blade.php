@@ -16,8 +16,13 @@
         <form action="/role-store" method="post">
             @csrf
             <div class="form-group">
-                <input type="text" class="form-control form-control-user text-center" id="role"
+                <input type="text" class="form-control form-control-user text-center @error('role') is-invalid @enderror" id="role"
                     placeholder="Role" name="role">
+                @error('role')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">

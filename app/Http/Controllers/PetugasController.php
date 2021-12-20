@@ -9,6 +9,10 @@ use App\Models\Masters\Balita;
 use App\Models\Masters\Posyandu;
 use App\Models\Masters\Kecamatan;
 use App\Models\Masters\Kelurahan;
+use App\Models\Masters\UserRole;
+use App\Models\Masters\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class PetugasController extends Controller
 {
@@ -130,6 +134,91 @@ class PetugasController extends Controller
                     document.location.href = '/petugas-balita-tambah'
                 </script>
             ";
+        }
+    }
+
+    public function user(){
+        $role = Role::where('ROLE', 'ORANGTUA')->first();
+        $users = UserRole::where('ID_ROLE',$role->ID_ROLE)->get('ID_USER');
+        //return $balita;
+        $a=0;
+        foreach ($users as $item){
+        $array[$a] = $item->ID_USER;
+        $a++;
+        }
+        $users = User::whereIn('id', $array)->get();
+        //return view('master/posyandu');
+        return view('petugas/user', ['users'=>$users]);
+    }
+
+    public function tambahUser(){
+        return view('admin/tambah/user');
+    }
+
+    public function simpanUser(Request $request){
+        $request->validate([
+            'username' => 'required|unique:users|min:3|max:20',
+            'password' => 'required',
+        ]);
+        $request->password = Hash::make($request->password);
+
+        $user = new User;
+        $user->USERNAME = $request->username;
+        $user->PASSWORD = $request->password;
+        if($user->save()){
+            $userFound = User::where('username',$user->USERNAME)->first();
+            $roleFound = Role::where('ROLE', 'ORANGTUA')->first();
+            $userRole = new UserRole;
+            $userRole->ID_USER = $userFound->id;
+            $userRole->ID_ROLE = $roleFound->ID_ROLE;
+            if ($userRole->save()){
+                return redirect('/petugas-user')->with('success', 'Berhasil registrasi, silahkan login!');
+            } else
+            return back()->with('regisError', 'Registrasi gagal!');
+        } else {
+            return back()->with('tambahError', 'Data gagal ditambahkan');
+        }
+    }
+
+    public function hapusUser(Request $request){
+        //return $request;
+        $user = User::where('id',$request->id);
+        if($user->delete()){
+            return back()->with('deleteSuccess', 'Data berhasil dihapus');
+        } else {
+            return back()->with('deleteError', 'Data gagal dihapus');
+        }
+    }
+
+    public function userRestore(){
+        $role = Role::where('ROLE', 'ORANGTUA')->first();
+        $users = UserRole::where('ID_ROLE',$role->ID_ROLE)->get('ID_USER');
+        //return $balita;
+        $a=0;
+        foreach ($users as $item){
+        $array[$a] = $item->ID_USER;
+        $a++;
+        }
+        $user = User::whereIn('id', $array)->onlyTrashed()->get();
+        return view('petugas/restore/user', ['user'=>$user]);
+    }
+
+    public function restoreUser(Request $request){
+        $user = User::where('id',$request->id);
+        if($user->restore()){
+            return redirect('/petugas-user')->with('restoreSuccess', 'Data berhasil dikembalikan');
+        } else {
+            return back()->with('restoreError', 'Data gagal dikembalikan');
+        }
+    }
+
+    public function forceDelUser(Request $request){
+        //return $request;
+        $user = User::where('id',$request->id);
+        if($user->forceDelete()){
+            return redirect('/petugas-user')->with('deleteSuccess', 'Data berhasil dihapus');
+        } else {
+            return back()->with('deleteError', 'Data gagal dihapus');
         }
     }
 }

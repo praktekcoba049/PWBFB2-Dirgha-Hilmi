@@ -26,8 +26,64 @@ class PetugasController extends Controller
     }
     
     public function balita(){
-        $balita = Balita::all();
-        return view('petugas/balita', ['balita'=>$balita]);
+        $kecamatan = Kecamatan::all();
+        $kelurahan = Kelurahan::all();
+        $posyandu = Posyandu::all();
+        $balita = Balita::latest();
+        $status = 0;
+        $statusKec = 0;
+        $statusKel = 0;
+        $statusPos = 0;
+        if(request('kecamatan')){
+            $status = 1;
+            $statusKec = 1;
+            $statusKel = 0;
+            $statusPos = 0;
+            $kecamatanFound = Kecamatan::where('KECAMATAN', request('kecamatan'))->first();
+            $kelurahanFound = Kelurahan::where('ID_KECAMATAN', $kecamatanFound->ID_KECAMATAN)->get('ID_KELURAHAN');
+            if($kelurahanFound->count()!=0){
+                $a=0;
+                foreach ($kelurahanFound as $item){
+                $array[$a] = $item->ID_KELURAHAN;
+                $a++;
+                }
+                $posyanduFound = Posyandu::whereIn('ID_KELURAHAN', $array)->get('ID_POSYANDU');
+                if($posyanduFound->count()!=0){
+                    $a=0;
+                    foreach ($posyanduFound as $item){
+                    $array[$a] = $item->ID_POSYANDU;
+                    $a++;
+                    }
+                    $balita = Balita::whereIn('ID_POSYANDU', $array);
+                }
+            }
+        } else
+        if(request('kelurahan')){
+            $status = 1;
+            $statusKel = 1;
+            $statusPos = 0;
+            $statusKec = 0;
+            $kelurahanFound = Kelurahan::where('KELURAHAN', request('kelurahan'))->first();
+            $posyanduFound = Posyandu::where('ID_KELURAHAN', $kelurahanFound->ID_KELURAHAN)->get('ID_POSYANDU');
+            if($posyanduFound->count()!=0){
+                $a=0;
+                foreach ($posyanduFound as $item){
+                $array[$a] = $item->ID_POSYANDU;
+                $a++;
+                }
+                $balita = Balita::whereIn('ID_POSYANDU', $array);
+            }
+        } else
+        if(request('posyandu')){
+            $status = 1;
+            $statusPos = 1;
+            $statusKec = 0;
+            $statusKel = 0;
+            $posyanduFound = Posyandu::where('NAMA_POSYANDU', request('posyandu'))->first();
+            $balita = Balita::where('ID_POSYANDU', $posyanduFound->ID_POSYANDU);
+        }
+        
+        return view('petugas/balita', ['kecamatan'=>$kecamatan, 'kelurahan'=>$kelurahan, 'posyandu'=>$posyandu, 'balita'=>$balita->get(), 'statusKec'=>$statusKec, 'statusKel'=>$statusKel, 'statusPos'=>$statusPos]);
     }
 
     public function tambahBalita(){
@@ -62,51 +118,87 @@ class PetugasController extends Controller
     }
 
     public function hposyandu(){
-        $hpos = Histori::all();
-        //return $hpos;
         $kecamatan = Kecamatan::all();
-        $kecamatanNow = Kecamatan::all()->first();
-        $kecamatanNow->ID_KECAMATAN = 0;
-        $kecamatanNow->KECAMATAN = "- Pilih Kecamatan -";
-
         $kelurahan = Kelurahan::all();
-        $kelurahanNow = Kelurahan::all()->first();
-        $kelurahanNow->ID_KELURAHAN = 0;
-        $kelurahanNow->KELURAHAN = "- Pilih Kelurahan -";
-
         $posyandu = Posyandu::all();
-        $posyanduNow = Posyandu::all()->first();
-        $posyanduNow->ID_POSYANDU = 0;
-        $posyanduNow->NAMA_POSYANDU = "- Pilih Posyandu -";
-        return view('petugas/hposyandu', ['hpos'=>$hpos, 'posyandu'=>$posyandu, 'posyanduNow'=>$posyanduNow,
-        'kelurahan'=>$kelurahan, 'kelurahanNow'=>$kelurahanNow, 'kecamatan'=>$kecamatan, 'kecamatanNow'=>$kecamatanNow]);
-    }
-
-    public function hposCari(Request $request){
-        $balita = Balita::where('ID_POSYANDU',$request->ID_POSYANDU)->get('ID_BALITA');
-        //return $balita;
-        $a=0;
-        foreach ($balita as $item){
-        $array[$a] = $item->ID_BALITA;
-        $a++;
+        $balita = Balita::all();
+        $hpos = Histori::latest();
+        $status = 0;
+        $statusKec = 0;
+        $statusKel = 0;
+        $statusPos = 0;
+        if(request('kecamatan')){
+            $status = 1;
+            $statusKec = 1;
+            $statusKel = 0;
+            $statusPos = 0;
+            $kecamatanFound = Kecamatan::where('KECAMATAN', request('kecamatan'))->first();
+            $kelurahanFound = Kelurahan::where('ID_KECAMATAN', $kecamatanFound->ID_KECAMATAN)->get('ID_KELURAHAN');
+            if($kelurahanFound->count()!=0){
+                $a=0;
+                foreach ($kelurahanFound as $item){
+                $array[$a] = $item->ID_KELURAHAN;
+                $a++;
+                }
+                $posyanduFound = Posyandu::whereIn('ID_KELURAHAN', $array)->get('ID_POSYANDU');
+                if($posyanduFound->count()!=0){
+                    $a=0;
+                    foreach ($posyanduFound as $item){
+                    $array[$a] = $item->ID_POSYANDU;
+                    $a++;
+                    }
+                    $balita = Balita::whereIn('ID_POSYANDU', $array)->get('ID_BALITA');
+                    if($balita->count()!=0){
+                        $a=0;
+                        foreach ($balita as $item){
+                        $array[$a] = $item->ID_BALITA;
+                        $a++;
+                        }
+                        $hpos = Histori::whereIn('ID_BALITA', $array);
+                    }
+                }
+            }
+        } else
+        if(request('kelurahan')){
+            $status = 1;
+            $statusKel = 1;
+            $statusPos = 0;
+            $statusKec = 0;
+            $kelurahanFound = Kelurahan::where('KELURAHAN', request('kelurahan'))->first();
+            $posyanduFound = Posyandu::where('ID_KELURAHAN', $kelurahanFound->ID_KELURAHAN)->get('ID_POSYANDU');
+            if($posyanduFound->count()!=0){
+                $a=0;
+                foreach ($posyanduFound as $item){
+                $array[$a] = $item->ID_POSYANDU;
+                $a++;
+                }
+                $balita = Balita::whereIn('ID_POSYANDU', $array)->get('ID_BALITA');
+                if($balita->count()!=0){
+                    $a=0;
+                    foreach ($balita as $item){
+                    $array[$a] = $item->ID_BALITA;
+                    $a++;
+                    }
+                    $hpos = Histori::whereIn('ID_BALITA', $array);
+                }
+            }
+        } else
+        if(request('posyandu')){
+            $status = 1;
+            $statusPos = 1;
+            $statusKec = 0;
+            $statusKel = 0;
+            $posyanduFound = Posyandu::where('NAMA_POSYANDU', request('posyandu'))->first();
+            $balita = Balita::where('ID_POSYANDU', $posyanduFound->ID_POSYANDU)->get('ID_BALITA');
+            $a=0;
+            foreach ($balita as $item){
+            $array[$a] = $item->ID_BALITA;
+            $a++;
+            }
+            $hpos = Histori::whereIn('ID_BALITA', $array);
         }
-        //return $array;
-        $hpos = Histori::whereIn('ID_BALITA', $array)->get();
         
-        //return $hpos;
-        $kecamatan = Kelurahan::all();
-        $valueKecPost = $request->ID_KECAMATAN;
-        $kecamatanNow = Posyandu::where('ID_POSYANDU',$valueKecPost)->first();
-
-        $kelurahan = Kelurahan::all();
-        $valueKelPost = $request->ID_KELURAHAN;
-        $kelurahanNow = Posyandu::where('ID_POSYANDU',$valueKelPost)->first();
-
-        $posyandu = Posyandu::all();
-        $valuePosPost = $request->ID_POSYANDU;
-        $posyanduNow = Posyandu::where('ID_POSYANDU',$valuePosPost)->first();
-        return view('petugas/hposyandu', ['hpos'=>$hpos, 'posyandu'=>$posyandu, 'posyanduNow'=>$posyanduNow,
-        'kelurahan'=>$kelurahan, 'kelurahanNow'=>$kelurahanNow, 'kecamatan'=>$kecamatan, 'kecamatanNow'=>$kecamatanNow]);
+        return view('petugas/hposyandu', ['kecamatan'=>$kecamatan, 'kelurahan'=>$kelurahan, 'posyandu'=>$posyandu, 'balita'=>$balita,'hpos'=>$hpos->get(), 'statusKec'=>$statusKec, 'statusKel'=>$statusKel, 'statusPos'=>$statusPos]);
     }
 
     public function tambahHpos(){

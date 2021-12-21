@@ -3,7 +3,7 @@
 @section('container')
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Histori Posyandu</h1>
+    <h1 class="h3 mb-2 text-gray-800">Histori Tiap Posyandu</h1>
     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
         For more information about DataTables, please visit the <a target="_blank"
             href="https://datatables.net">official DataTables documentation</a>.</p>
@@ -14,25 +14,51 @@
             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
         </div>
         <div class="row justify-content-md-center">
-            <div class="col-md-6 pt-4 pl-3">
-                <form action="/petugas-hposyandu-cari" method="post">
+            <div class="col-md-5 pt-4 pl-3">
+                <form action="/petugas-hposyandu">
                     @csrf
                     <div class="text-center">
                         <h3>Filter</h3>
                     </div>
-                    <div class="row pb-3">
-                        <div class="col-md-12">
-                            <select name="ID_POSYANDU" class="form-control text-center">
-                                <option value="{{ $posyanduNow->ID_POYSANDU }}">{{ $posyanduNow->NAMA_POSYANDU }}</option>
-                                @foreach ($posyandu as $item)
-                                    <option value="{{ $item->ID_POSYANDU }}">{{ $item->NAMA_POSYANDU }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="text-center">
+                        <h6 class="text-danger">(*) Pilih salah satu kategori.</h6>
                     </div>
-                    <div class="row justify-content-md-center">
+                    <div class="">
+                        <select name="kecamatan" class="form-control text-center mt-1">
+                            @if ($statusKec==1)
+                            <option value="">{{ request('kecamatan') }}</option>
+                            @else 
+                            <option value="">Pilih Kecamatan</option>
+                            @endif
+                            @foreach ($kecamatan as $item)
+                                <option value="{{ $item->KECAMATAN }}">{{ $item->KECAMATAN }}</option>
+                            @endforeach
+                        </select>
+                        <select name="kelurahan" class="form-control text-center mt-1">
+                            @if ($statusKel==1)
+                            <option value="">{{ request('kelurahan') }}</option>
+                            @else
+                            <option value="">Pilih Kelurahan</option>
+                            @endif
+                            @foreach ($kelurahan as $item)
+                                <option value="{{ $item->KELURAHAN }}">{{ $item->KELURAHAN }}</option>
+                            @endforeach
+                        </select>
+                        <select name="posyandu" class="form-control text-center mt-1">
+                            @if ($statusPos==1)
+                            <option value="">{{ request('posyandu') }}</option>
+                            @else
+                            <option value="">Pilih Posyandu</option>
+                            @endif
+                            @foreach ($posyandu as $item)
+                                <option value="{{ $item->NAMA_POSYANDU }}">{{ $item->NAMA_POSYANDU }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-8"></div>
                         <div class="col-md-4">
-                            <button type="submit" name="submit" class="btn btn-success btn-user btn-block">
+                            <button type="submit" name="" class="btn btn-success btn-user btn-block">
                                 Cari
                             </button>
                         </div>

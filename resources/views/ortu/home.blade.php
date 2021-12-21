@@ -15,22 +15,14 @@
     </div>
     <div class="row justify-content-md-center">
         <div class="col-md-6 pt-4 pl-3">
-            <form action="/cari-his-balita" method="post">
+            <form action="/orangtua">
                 @csrf
                 <div class="text-center">
                     <h3>Histori Posyandu Balita Anda</h3>
                 </div>
                 <div class="row">
                     <div class="col-md-8">
-                        <?php if ($status == 1){ ?> 
-                            <input type="text" class="form-control form-control-user text-center" id="nik"
-                                placeholder="Masukkan NIK" name="nik" value="{{ $valueNIK }}">
-                        <?php
-                        } else if ($status == 0){ ?>
-                            <input type="text" class="form-control form-control-user text-center" id="nik"
-                                placeholder="Masukkan NIK" name="nik">
-                        <?php
-                        }?>
+                        <input type="text" class="form-control" placeholder="Masukkan NIK" name="nik" value="{{ request('nik') }}">
                     </div>
                     <div class="col-md-4">
                         <button type="submit" name="submit" class="btn btn-success btn-user btn-block">
@@ -62,27 +54,19 @@
                 </tfoot>
                 
                 <tbody>
-                    <?php
-                    if ($status == 1){
-                        foreach($hpos as $item){
-                    ?>
+                    @if ($status==1)
+                        @foreach($hpos as $item)
                         <tr>
                             <td>{{ $item->UPDATED_AT }}</td>
                             <td>{{ $item->ID_BALITA }}</td>
                             <td>{{ $item->BERAT_BADAN_BALITA }}</td>
                             <td>{{ $item->TINGGI_BADAN }}</td>
                         </tr>
-                    <?php
-                        }
-                    }
-                    else if ($status == 0){
-                    ?>   
-                            
-                    <?php
-                    }
-                    ?>
+                        @endforeach
+                    @else
+                        
+                    @endif
                 </tbody>
-                
             </table>
         </div>
     </div>

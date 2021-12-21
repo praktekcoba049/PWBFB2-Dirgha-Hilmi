@@ -15,6 +15,59 @@
                 <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
         </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-5 pt-4 pl-3">
+                <form action="/petugas-balita">
+                    @csrf
+                    <div class="text-center">
+                        <h3>Filter</h3>
+                    </div>
+                    <div class="text-center">
+                        <h6 class="text-danger">(*) Pilih salah satu kategori.</h6>
+                    </div>
+                    <div class="">
+                        <select name="kecamatan" class="form-control text-center mt-1">
+                            @if ($statusKec==1)
+                            <option value="">{{ request('kecamatan') }}</option>
+                            @else 
+                            <option value="">Pilih Kecamatan</option>
+                            @endif
+                            @foreach ($kecamatan as $item)
+                                <option value="{{ $item->KECAMATAN }}">{{ $item->KECAMATAN }}</option>
+                            @endforeach
+                        </select>
+                        <select name="kelurahan" class="form-control text-center mt-1">
+                            @if ($statusKel==1)
+                            <option value="">{{ request('kelurahan') }}</option>
+                            @else
+                            <option value="">Pilih Kelurahan</option>
+                            @endif
+                            @foreach ($kelurahan as $item)
+                                <option value="{{ $item->KELURAHAN }}">{{ $item->KELURAHAN }}</option>
+                            @endforeach
+                        </select>
+                        <select name="posyandu" class="form-control text-center mt-1">
+                            @if ($statusPos==1)
+                            <option value="">{{ request('posyandu') }}</option>
+                            @else
+                            <option value="">Pilih Posyandu</option>
+                            @endif
+                            @foreach ($posyandu as $item)
+                                <option value="{{ $item->NAMA_POSYANDU }}">{{ $item->NAMA_POSYANDU }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">
+                            <button type="submit" name="" class="btn btn-success btn-user btn-block">
+                                Cari
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

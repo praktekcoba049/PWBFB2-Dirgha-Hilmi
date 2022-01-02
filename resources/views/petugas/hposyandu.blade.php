@@ -72,7 +72,7 @@
                     <thead>
                         <tr>
                             <th>Tanggal</th>
-                            <th>Id Balita</th>
+                            <th>Nama Balita</th>
                             <th>BB Balita</th>
                             <th>Tinggi Balita</th>
                         </tr>
@@ -80,7 +80,7 @@
                     <tfoot>
                         <tr>
                             <th>Tanggal</th>
-                            <th>Id Balita</th>
+                            <th>Nama Balita</th>
                             <th>BB Balita</th>
                             <th>Tinggi Balita</th>
                         </tr>
@@ -90,7 +90,7 @@
                         @foreach($hpos as $item)
                             <tr>
                                 <td>{{ $item->UPDATED_AT }}</td>
-                                <td>{{ $item->ID_BALITA }}</td>
+                                <td>{{ $item->NAMA_BALITA }}</td>
                                 <td>{{ $item->BERAT_BADAN_BALITA }}</td>
                                 <td>{{ $item->TINGGI_BADAN }}</td>
                             </tr>

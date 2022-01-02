@@ -58,6 +58,8 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Kecamatan</th>
+                            <th>Kelurahan</th>
                             <th>Nama Posyandu</th>
                             <th>Alamat Posyandu</th>
                             <th>Aksi</th>
@@ -65,6 +67,8 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>Kecamatan</th>
+                            <th>Kelurahan</th>
                             <th>Nama Posyandu</th>
                             <th>Alamat Posyandu</th>
                             <th>Aksi</th>
@@ -73,6 +77,8 @@
                     <tbody>
                         @foreach ($posyandu as $item)
                             <tr>
+                                <td>{{ $item->KECAMATAN }}</td>
+                                <td>{{ $item->KELURAHAN }}</td>
                                 <td>{{ $item->NAMA_POSYANDU }}</td>
                                 <td>{{ $item->ALAMAT_POSYANDU }}</td>
                                 <td>

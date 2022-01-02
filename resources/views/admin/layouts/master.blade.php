@@ -36,7 +36,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-hand-holding-medical"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">ASIPS</div>
             </a>
@@ -63,7 +63,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-database"></i>
                     <span>Master</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -94,21 +94,10 @@
                 </div>
             </li>
 
-            <!-- Nav Item - View Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseView"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-history"></i>
-                    <span>View History Data</span>
-                </a>
-                <div id="collapseView" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Histori Data Masukan:</h6>
-                        <a class="collapse-item" href="/hposyandu">History Posyandu</a>
-                        <a class="collapse-item" href="/hbalita">Histori Balita</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="/hposyandu">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>History Posyandu</span></a>
             </li>
 
             <!-- Divider -->

@@ -38,6 +38,15 @@
                 @enderror
             </div>
             <div class="form-group">
+                <input type="text" class="form-control form-control-user text-center @error('nama') is-invalid @enderror" id="exampleFirstName"
+                        placeholder="Nama" name="nama" value="{{ old('nama') }}">
+                @error('nama')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <div class="form-group">
                 <input type="password" class="form-control form-control-user text-center @error('password') is-invalid @enderror"
                         id="exampleInputPassword" placeholder="Password" name="password">
                 @error('password')

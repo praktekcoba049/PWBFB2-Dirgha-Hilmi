@@ -77,6 +77,7 @@
                             <th>Tanggal Lahir</th>
                             <th>Jenis Kelamin</th>
                             <th>Nama Orangtua</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -86,6 +87,7 @@
                             <th>Tanggal Lahir</th>
                             <th>Jenis Kelamin</th>
                             <th>Nama Orangtua</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
@@ -94,8 +96,21 @@
                             <tr>
                                 <td>{{ $item->NAMA_BALITA }}</td>
                                 <td>{{ $item->TGL_LAHIR_BALITA }}</td>
-                                <td>{{ $item->JENIS_KELAMIN_BALITA }}</td>
+                                @if($item->JENIS_KELAMIN_BALITA==0)
+                                <td>Perempuan</td>
+                                @else
+                                <td>Laki-Laki</td>
+                                @endif
                                 <td>{{ $item->NAMA_ORANG_TUA }}</td>
+                                @if($item->STATUS==0)
+                                <td>Normal</td>
+                                @endif 
+                                @if($item->STATUS==1)
+                                <td>Terindikasi Stunting</td>
+                                @endif
+                                @if ($item->STATUS==2)
+                                <td>Stunting</td>
+                                @endif
                                 <td>
                                     <a href="/edit-kec" class="btn btn-primary tombol">Ubah</a>
                                     <a href="#" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>

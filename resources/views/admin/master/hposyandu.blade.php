@@ -56,7 +56,9 @@
                         </select>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-8"></div>
+                        <div class="col-md-8">
+                            <a href="/hposyandu" class="btn btn-success">Tampilkan Semua</a> <br/><br/>
+                        </div>
                         <div class="col-md-4">
                             <button type="submit" name="" class="btn btn-success btn-user btn-block">
                                 Cari
@@ -90,7 +92,7 @@
                         @foreach($hpos as $item)
                             <tr>
                                 <td>{{ $item->UPDATED_AT }}</td>
-                                <td>{{ $item->ID_BALITA }}</td>
+                                <td>{{ $item->NAMA_BALITA }}</td>
                                 <td>{{ $item->BERAT_BADAN_BALITA }}</td>
                                 <td>{{ $item->TINGGI_BADAN }}</td>
                             </tr>

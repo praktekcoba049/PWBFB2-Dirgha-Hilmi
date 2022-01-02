@@ -16,7 +16,8 @@ use App\Models\Masters\Histori;
 class DataMasController extends Controller
 {
     public function homeMaster(){
-        return view('admin/master/home');
+        $balita = Balita::all();
+        return view('admin/master/home', ['balita'=>$balita]);
     }
 
     public function kecamatan(){
@@ -98,10 +99,12 @@ class DataMasController extends Controller
     }
 
     public function kelurahan(){
-        $kelurahan = Kelurahan::all();
-        $kecamatan = Kecamatan::all();
-        //return view('master/kelurahan');
-        return view('admin/master/kelurahan', ['kelurahan'=>$kelurahan, 'kecamatan'=>$kecamatan]);
+
+        $kelurahan = Kelurahan::join('kecamatan', 'kecamatan.ID_KECAMATAN', '=', 'kelurahan.ID_KECAMATAN')
+                     ->where('kecamatan.DELETED_AT', NULL)
+                     ->get();
+        //die(var_dump($kelurahan));
+        return view('admin/master/kelurahan', ['kelurahan'=>$kelurahan]);
     }
 
     public function tambahKel(){
@@ -184,7 +187,10 @@ class DataMasController extends Controller
     }
 
     public function posyandu(){
-        $posyandu = Posyandu::all();
+        $posyandu = Posyandu::join('kelurahan', 'kelurahan.ID_KELURAHAN', '=', 'posyandu.ID_KELURAHAN')
+                    ->join('kecamatan', 'kecamatan.ID_KECAMATAN', '=', 'kelurahan.ID_KECAMATAN')
+                    ->where('kecamatan.DELETED_AT', NULL)->orWhere('kelurahan.DELETED_AT', NULL)
+                    ->get();
         //return view('master/posyandu');
         return view('admin/master/posyandu', ['posyandu'=>$posyandu]);
     }
@@ -488,12 +494,14 @@ class DataMasController extends Controller
         $request->validate([
             'id_role' => 'required',
             'username' => 'required|unique:users|min:3|max:20',
+            'nama' => 'required',
             'password' => 'required',
         ]);
         $request->password = Hash::make($request->password);
 
         $user = new User;
         $user->USERNAME = $request->username;
+        $user->NAMA = $request->nama;
         $user->PASSWORD = $request->password;
         if($user->save()){
             $userFound = User::where('username',$user->USERNAME)->first();
@@ -566,7 +574,7 @@ class DataMasController extends Controller
         $kecamatan = Kecamatan::all();
         $kelurahan = Kelurahan::all();
         $posyandu = Posyandu::all();
-        $hpos = Histori::latest();
+        $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA');
         $status = 0;
         $statusKec = 0;
         $statusKel = 0;
@@ -598,7 +606,7 @@ class DataMasController extends Controller
                         $array[$a] = $item->ID_BALITA;
                         $a++;
                         }
-                        $hpos = Histori::whereIn('ID_BALITA', $array);
+                        $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA')->whereIn('history_posyandu.ID_BALITA', $array);
                     }
                 }
             }
@@ -623,7 +631,7 @@ class DataMasController extends Controller
                     $array[$a] = $item->ID_BALITA;
                     $a++;
                     }
-                    $hpos = Histori::whereIn('ID_BALITA', $array);
+                    $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA')->whereIn('history_posyandu.ID_BALITA', $array);
                 }
             }
         } else
@@ -639,7 +647,7 @@ class DataMasController extends Controller
             $array[$a] = $item->ID_BALITA;
             $a++;
             }
-            $hpos = Histori::whereIn('ID_BALITA', $array);
+            $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA')->whereIn('history_posyandu.ID_BALITA', $array);
         }
         
         return view('admin/master/hposyandu', ['kecamatan'=>$kecamatan, 'kelurahan'=>$kelurahan, 'posyandu'=>$posyandu, 'hpos'=>$hpos->get(), 'statusKec'=>$statusKec, 'statusKel'=>$statusKel, 'statusPos'=>$statusPos]);

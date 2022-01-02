@@ -136,13 +136,11 @@ Route::post('/petugas-balita-simpan', [PetugasController::class, 'simpanBalita']
 Route::get('/petugas-hposyandu-tambah', [PetugasController::class, 'tambahHpos'])->middleware('auth', 'petugas');
 Route::post('/petugas-hposyandu-simpan', [PetugasController::class, 'simpanHpos']);
 
-Route::get('/petugas-user-tambah', [PetugasController::class, 'tambahUser'])->middleware('auth', 'petugas');
-Route::post('/petugas-user-simpan', [PetugasController::class, 'dataUser']);
-
 //Petugas Restore Data
 Route::get('/petugas-user-restore', [PetugasController::class, 'userRestore'])->middleware('auth', 'petugas');
 Route::post('/petugas-restore-user', [PetugasController::class, 'restoreUser']);
 Route::post('/petugas-delete-permanent-user', [PetugasController::class, 'forceDelUser']);
 
 // Orang Tua
-Route::get('/orangtua', [OrangtuaController::class, 'index'])->middleware('auth', 'orangtua');
+Route::get('/orangtua-balita', [OrangtuaController::class, 'index'])->middleware('auth', 'orangtua');
+Route::post('/orangtua-balita-history', [OrangtuaController::class, 'hpos'])->middleware('auth', 'orangtua');

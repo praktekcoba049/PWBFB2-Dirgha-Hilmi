@@ -36,7 +36,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-hand-holding-medical"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">ASIPS</div>
             </a>
@@ -46,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/petugas">
+                <a class="nav-link" href="/orangtua-balita">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -61,8 +61,8 @@
 
             <!-- Nav Item - Master Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/orangtua" >
-                    <i class="fas fa-fw fa-cog"></i>
+                <a class="nav-link collapsed" href="/orangtua-balita" >
+                    <i class="fas fa-laptop-medical"></i>
                     <span>Aplikasi</span>
                 </a>
             </li>

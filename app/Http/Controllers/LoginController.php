@@ -75,13 +75,15 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
         if ($userFound = User::where('username',$request->username)->first()){
+        //return $userFound;
         $userRoleFound = UserRole::where('ID_USER',$userFound->id)->first();
+        //return $userRoleFound;
         $roleFound = Role::where('ROLE','ORANGTUA')->first();
         if ($userRoleFound->ID_ROLE == $roleFound->ID_ROLE){
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
     
-                return redirect()->intended('/orangtua');
+                return redirect()->intended('/orangtua-balita');
             } else
             return back()->with('loginError', 'Login gagal');
         } else

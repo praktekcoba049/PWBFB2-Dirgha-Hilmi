@@ -30,48 +30,72 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="p-5">
+                        @if (session()->has('tambahError'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('tambahError') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Tambah Data Balita!</h1>
                         </div>
                         <form action="/petugas-balita-simpan" method="post">
                             @csrf
                             <div class="form-group">
-                                <select name="id_posyandu" class="form-control text-center">
+                                <select name="id_posyandu" class="form-control text-center @error('id_posyandu') is-invalid @enderror">
                                     <option value="">- Pilih Posyandu -</option>
                                     @foreach ($posyandu as $item)
                                         <option value="{{ $item->ID_POSYANDU }}">{{ $item->NAMA_POSYANDU }}</option>
                                     @endforeach
                                 </select>
+                                @error('id_posyandu')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
+                                <input type="text" class="form-control form-control-user text-center @error('balita') is-invalid @enderror" id="exampleFirstName"
                                         placeholder="Nama Balita" name="balita">
+                                @error('balita')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <input type="number" class="form-control form-control-user text-center" id="exampleFirstName"
+                                <input type="text" class="form-control form-control-user text-center @error('NIK_orangtua') is-invalid @enderror" id="exampleFirstName"
                                         placeholder="NIK Orang Tua" name="NIK_orangtua">
+                                @error('NIK_orangtua')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user text-center" id="exampleFirstName"
-                                        placeholder="Nama Otang Tua" name="orangtua">
+                                <input type="text" class="form-control form-control-user text-center @error('orangtua') is-invalid @enderror" id="exampleFirstName"
+                                        placeholder="Nama Orang Tua" name="orangtua">
                             </div>
                             <div class="form-group">
                                 <input type="date" class="form-control form-control-user text-center" id="exampleFirstName"
                                         placeholder="Tanggal Lahir" name="tgl_lahir">
+                                @error('orangtua')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <select name="jk" class="form-control text-center">
+                                <select name="jk" class="form-control text-center @error('jk') is-invalid @enderror">
                                     <option value="">- Pilih Jenis kelamin -</option>
                                     <option value="1">Laki-laki</option>
                                     <option value="0">Perempuan</option>
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <select name="status" class="form-control text-center">
-                                    <option value="">- Pilih Status -</option>
-                                    <option value="1">Aktif</option>
-                                    <option value="0">Tidak Aktif</option>
-                                </select>
+                                @error('jk')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <br>
                             <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">

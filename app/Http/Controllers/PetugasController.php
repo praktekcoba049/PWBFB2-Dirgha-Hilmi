@@ -11,8 +11,11 @@ use App\Models\Masters\Kecamatan;
 use App\Models\Masters\Kelurahan;
 use App\Models\Masters\UserRole;
 use App\Models\Masters\Role;
+use App\Models\Masters\Ukur;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+Use Illuminate\Support\Carbon;
 
 class PetugasController extends Controller
 {
@@ -92,6 +95,15 @@ class PetugasController extends Controller
     }
 
     public function simpanBalita(Request $request){
+        $request->validate([
+            'id_posyandu' => 'required',
+            'balita' => 'required|max:100',
+            'NIK_orangtua' => 'required|min:16|max:16',
+            'orangtua' => 'required|max:100',
+            'tgl_lahir' => 'required',
+            'jk' => 'required',
+        ]);
+
         $balita = new Balita;
         $balita->ID_POSYANDU = $request->id_posyandu;
         $balita->NAMA_BALITA = $request->balita;
@@ -99,21 +111,32 @@ class PetugasController extends Controller
         $balita->NAMA_ORANG_TUA = $request->orangtua;
         $balita->TGL_LAHIR_BALITA = $request->tgl_lahir;
         $balita->JENIS_KELAMIN_BALITA = $request->jk;
-        $balita->STATUS = $request->status;
-        if($balita->save()){
-            echo "
-                <script>
-                    alert('Data berhasil ditambahkan');
-                    document.location.href = '/petugas'
-                </script>
-            ";
+        $balita->STATUS = 0;
+
+        $user = new User;
+        $user->USERNAME = $request->NIK_orangtua;
+        $user->NAMA = $request->orangtua;
+        $pass = $request->NIK_orangtua;
+        $pass = Hash::make($pass);
+        $user->PASSWORD = $pass;
+        if ($userFind = User::where('username', $request->NIK_orangtua)->first()){
+            if($balita->save()){
+                return redirect('/petugas')->with('success', 'Data berhasil ditambahkan');
+            } else
+            return back()->with('tambahError', 'Data gagal ditambahkan');
+        }
+        if($user->save() && $balita->save()){
+            $userFound = User::where('username',$user->USERNAME)->first();
+            $roleFound = Role::where('ROLE', 'ORANGTUA')->first();
+            $userRole = new UserRole;
+            $userRole->ID_USER = $userFound->id;
+            $userRole->ID_ROLE = $roleFound->ID_ROLE;
+            if ($userRole->save()){
+                return redirect('/petugas')->with('success', 'Data berhasil ditambahkan');
+            } else
+            return back()->with('tambahError', 'Data gagal ditambahkan');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal ditambahkan');
-                    document.location.href = '/petugas-balita-tambah'
-                </script>
-            ";
+            return back()->with('tambahError', 'Data gagal ditambahkan');
         }
     }
 
@@ -122,7 +145,7 @@ class PetugasController extends Controller
         $kelurahan = Kelurahan::all();
         $posyandu = Posyandu::all();
         $balita = Balita::all();
-        $hpos = Histori::latest();
+        $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA');
         $status = 0;
         $statusKec = 0;
         $statusKel = 0;
@@ -154,7 +177,7 @@ class PetugasController extends Controller
                         $array[$a] = $item->ID_BALITA;
                         $a++;
                         }
-                        $hpos = Histori::whereIn('ID_BALITA', $array);
+                        $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA')->whereIn('history_posyandu.ID_BALITA', $array);
                     }
                 }
             }
@@ -179,7 +202,7 @@ class PetugasController extends Controller
                     $array[$a] = $item->ID_BALITA;
                     $a++;
                     }
-                    $hpos = Histori::whereIn('ID_BALITA', $array);
+                    $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA')->whereIn('history_posyandu.ID_BALITA', $array);
                 }
             }
         } else
@@ -195,7 +218,7 @@ class PetugasController extends Controller
             $array[$a] = $item->ID_BALITA;
             $a++;
             }
-            $hpos = Histori::whereIn('ID_BALITA', $array);
+            $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA')->whereIn('history_posyandu.ID_BALITA', $array);
         }
         
         return view('petugas/hposyandu', ['kecamatan'=>$kecamatan, 'kelurahan'=>$kelurahan, 'posyandu'=>$posyandu, 'balita'=>$balita,'hpos'=>$hpos->get(), 'statusKec'=>$statusKec, 'statusKel'=>$statusKel, 'statusPos'=>$statusPos]);
@@ -207,25 +230,58 @@ class PetugasController extends Controller
     }
 
     public function simpanHpos(Request $request){
+        $request->validate([
+            'id_balita' => 'required',
+            'tgl_posyandu' => 'required',
+            'berat' => 'required|max:5',
+            'tinggi' => 'required|max:5',
+        ]);
+
+        $idUser = User::where('username', Auth::user()->username)->first();
+        
+
         $hpos = new Histori;
         $hpos->ID_BALITA = $request->id_balita;
+        $hpos->ID_USER = $idUser->id;
         $hpos->TGL_POSYANDU = $request->tgl_posyandu;
         $hpos->BERAT_BADAN_BALITA = $request->berat;
         $hpos->TINGGI_BADAN = $request->tinggi;
-        if($hpos->save()){
-            echo "
-                <script>
-                    alert('Data berhasil ditambahkan');
-                    document.location.href = '/petugas'
-                </script>
-            ";
+
+        $balita = Balita::where('ID_BALITA', $request->id_balita)->first();
+        $tglLahir = $balita->TGL_LAHIR_BALITA;
+        $tglLahir = date_create($tglLahir);
+        $now = date_create($request->tgl_posyandu);
+        $umur = date_diff($tglLahir, $now);
+        $tahun = $umur->y;
+        $bulan = $umur->m;
+        $umur = ($tahun*12)+$bulan;
+
+        $ukur = Ukur::where('UMUR', $umur)->first();
+
+        $balita = Balita::where('ID_BALITA', $request->id_balita);
+        if ($request->tinggi < $ukur->STUNTED){
+            if ($request->tinggi < $ukur->SUVERELY_STUNTED){
+                if($hpos->save() && $balita->update([
+                    'STATUS'=>2
+                    ])){
+                    return redirect('/petugas')->with('success', 'Data berhasil ditambahkan');
+                } else {
+                    return back()->with('tambahError', 'Data gagal ditambahkan');
+                }
+            } else
+            if($hpos->save() && $balita->update([
+                'STATUS'=>1
+                ])){
+                return redirect('/petugas')->with('success', 'Data berhasil ditambahkan');
+            } else {
+                return back()->with('tambahError', 'Data gagal ditambahkan');
+            }
+        } else if($hpos->save() && $balita->update([
+            'STATUS'=>0
+            ])){
+            return redirect('/petugas')->with('success', 'Data berhasil ditambahkan');
         } else {
-            echo "
-                <script>
-                    alert('Data gagal ditambahkan');
-                    document.location.href = '/petugas-balita-tambah'
-                </script>
-            ";
+            return back()->with('tambahError', 'Data gagal ditambahkan');
         }
     }
 

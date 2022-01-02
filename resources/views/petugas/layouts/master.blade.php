@@ -36,7 +36,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-hand-holding-medical"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">ASIPS</div>
             </a>
@@ -62,7 +62,7 @@
             <!-- Nav Item - Master Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/petugas" >
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-laptop-medical"></i>
                     <span>Aplikasi</span>
                 </a>
             </li>
@@ -71,7 +71,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePendukung"
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-table"></i>
                     <span>Data Posyandu</span>
                 </a>
                 <div id="collapsePendukung" class="collapse" aria-labelledby="headingUtilities"

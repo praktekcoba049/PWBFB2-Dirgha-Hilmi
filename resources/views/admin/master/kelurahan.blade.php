@@ -58,22 +58,22 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Kecamatan</th>
-                            <th>Nama Kelurahan</th>
+                            <th>Kecamatan</th>
+                            <th>Kelurahan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID Kecamatan</th>
-                            <th>Nama Kelurahan</th>
+                            <th>Kecamatan</th>
+                            <th>Kelurahan</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach ($kelurahan as $item)
                             <tr>
-                                <td>{{ $item->kecamatan }}</td>
+                                <td>{{ $item->KECAMATAN }}</td>
                                 <td>{{ $item->KELURAHAN }}</td>
                                 <td>
                                     <form action="/edit-kel" method="post" class="d-inline">

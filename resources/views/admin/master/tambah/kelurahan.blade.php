@@ -23,30 +23,22 @@
                     @endforeach
                 </select>
                 @error('ID_KECAMATAN')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
                 <input type="text" class="form-control form-control-user text-center @error('kelurahan') is-invalid @enderror" id="kelurahan"
                     placeholder="Nama Kelurahan" name="kelurahan">
                 @error('kelurahan')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    <a href="/kelurahan" class="btn btn-danger btn-user btn-block">
-                        Batal
-                    </a>
+                    <a href="/kelurahan" class="btn btn-danger btn-user btn-block">Batal</a>
                 </div>
                 <div class="col-sm-6">
-                    <button type="submit" name="submit" class="btn btn-success btn-user btn-block">
-                        Tambah
-                    </button>
+                    <button type="submit" name="submit" class="btn btn-success btn-user btn-block">Tambah</button>
                 </div>
             </div>
             <hr>

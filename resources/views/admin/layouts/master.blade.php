@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="icon" href="assets/img/logo.png">
     <title>ASIPS Admin Page</title>
 
     <!-- Custom fonts for this template -->

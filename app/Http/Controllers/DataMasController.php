@@ -131,7 +131,8 @@ class DataMasController extends Controller
 
     public function editKel(Request $request){
         $kecamatan = Kecamatan::all();
-        $kelurahan = Kelurahan::where('ID_KELURAHAN',$request->id)->first();
+        $kelurahan = Kelurahan::join('kecamatan', 'kecamatan.ID_KECAMATAN', '=', 'kelurahan.ID_KECAMATAN')
+                     ->where('kelurahan.ID_KELURAHAN',$request->id)->first();
         return view('admin/master/edit/kelurahan', ['kecamatan'=>$kecamatan, 'kelurahan'=>$kelurahan]);
     }
 
@@ -163,7 +164,8 @@ class DataMasController extends Controller
     }
 
     public function kelurahanRestore(){
-        $kelurahan = Kelurahan::onlyTrashed()->get();
+        $kelurahan = Kelurahan::join('kecamatan', 'kecamatan.ID_KECAMATAN', '=', 'kelurahan.ID_KECAMATAN')
+                     ->onlyTrashed()->get();
         return view('admin/master/restore/kelurahan', ['kelurahan'=>$kelurahan]);
     }
 

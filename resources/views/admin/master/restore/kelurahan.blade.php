@@ -2,18 +2,12 @@
 
 @section('container')
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">List Kelurahan</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables, please visit the <a target="_blank"
-            href="https://datatables.net">official DataTables documentation</a>.</p>
-
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
                 <div class="col-sm-6 py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Trash Data Kelurahan</h6>
                 </div>
                 <div class="col-sm-6 text-right">
                     <a href="/kelurahan" class="btn btn-primary tombol">Kembali</a>
@@ -37,14 +31,14 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Kecamatan</th>
+                            <th>Kecamatan</th>
                             <th>Nama Kelurahan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID Kecamatan</th>
+                            <th>Kecamatan</th>
                             <th>Nama Kelurahan</th>
                             <th>Aksi</th>
                         </tr>
@@ -52,7 +46,7 @@
                     <tbody>
                         @foreach ($kelurahan as $item)
                             <tr>
-                                <td>{{ $item->ID_KECAMATAN }}</td>
+                                <td>{{ $item->KECAMATAN }}</td>
                                 <td>{{ $item->KELURAHAN }}</td>
                                 <td>
                                     <form action="/restore-kelurahan" method="post" class="d-inline">
@@ -65,7 +59,7 @@
                                     <form action="/delete-permanent-kelurahan" method="post" class="d-inline">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $item->ID_KELURAHAN }}">
-                                        <button class="btn btn-danger tombol border-0" onclick="return confirm('Akan menghapus data penrmanen?');">
+                                        <button class="btn btn-danger tombol border-0" onclick="return confirm('Akan menghapus data permanen?');">
                                             Hapus
                                         </button>
                                     </form>

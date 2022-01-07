@@ -11,15 +11,15 @@
             </div>
         @endif
         <div class="text-center">
-            <h1 class="h4 text-gray-900 mb-4">Tambahkan Role!</h1>
+            <h1 class="h4 text-gray-900 mb-4">Tambah User!</h1>
         </div>
         <form action="/user-store" method="post">
             @csrf
             <div class="form-group">
-                <select name="id_role" class="form-control text-center @error('id_role') is-invalid @enderror">
-                    <option value="">- Pilih Role -</option>
-                    @foreach ($role as $item)
-                        <option value="{{ $item->ID_ROLE }}">{{ $item->ROLE }}</option>
+                <select name="id_posyandu" class="form-control text-center @error('id_role') is-invalid @enderror">
+                    <option value="">- Pilih Posyandu -</option>
+                    @foreach ($posyandu as $item)
+                        <option value="{{ $item->ID_POSYANDU }}">{{ $item->NAMA_POSYANDU }}</option>
                     @endforeach
                 </select>
                 @error('id_role')

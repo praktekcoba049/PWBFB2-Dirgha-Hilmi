@@ -40,20 +40,6 @@
                             <h1 class="h4 text-gray-900 mb-4">Tambah Data Balita!</h1>
                         </div>
                         <form action="/petugas-balita-simpan" method="post">
-                            @csrf
-                            <div class="form-group">
-                                <select name="id_posyandu" class="form-control text-center @error('id_posyandu') is-invalid @enderror">
-                                    <option value="">- Pilih Posyandu -</option>
-                                    @foreach ($posyandu as $item)
-                                        <option value="{{ $item->ID_POSYANDU }}">{{ $item->NAMA_POSYANDU }}</option>
-                                    @endforeach
-                                </select>
-                                @error('id_posyandu')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user text-center @error('balita') is-invalid @enderror" id="exampleFirstName"
                                         placeholder="Nama Balita" name="balita">

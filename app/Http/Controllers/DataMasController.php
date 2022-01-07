@@ -17,7 +17,16 @@ class DataMasController extends Controller
 {
     public function homeMaster(){
         $balita = Balita::all();
-        return view('admin/master/home', ['balita'=>$balita]);
+        $balitaStunt = Balita::where('STATUS', 2)->distinct('ID_POSYANDU')->get('ID_POSYANDU');
+        $a = 0;
+        foreach ($balitaStunt as $item){
+            $array[$a] = $item->ID_POSYANDU;
+            $a++;
+        }
+        
+        $posyandu = Posyandu::whereIn('ID_POSYANDU', $array)->get();
+        //return $posyandu;
+        return view('admin/master/home', ['balita'=>$balita , 'posyandu'=>$posyandu]);
     }
 
     public function kecamatan(){
@@ -209,12 +218,13 @@ class DataMasController extends Controller
             'alamat' => 'required|max:100',
         ]);
         $kelurahan = Kelurahan::where('ID_KELURAHAN', $request->ID_KELURAHAN)->first();
+        $kecamatan = Kecamatan::where('ID_KECAMATAN', $kelurahan->ID_KECAMATAN)->first();
         $posyandu = new Posyandu;
         $posyandu->ID_KELURAHAN = $request->ID_KELURAHAN;
-        $posyandu->NAMA_POSYANDU = $request->posyandu;
-        $posyandu->ALAMAT_POSYANDU = $request->alamat.' '.$kelurahan->KELURAHAN;
+        $posyandu->NAMA_POSYANDU = $request->posyandu.', Kel. '.$kelurahan->KELURAHAN.', Kec. '.$kecamatan->KECAMATAN;
+        $posyandu->ALAMAT_POSYANDU = $request->alamat.', Kel. '.$kelurahan->KELURAHAN.', Kec. '.$kecamatan->KECAMATAN;
         if($posyandu->save()){
-            return redirect('/hposyandu')->with('tambahSuccess', 'Data berhasil ditambahkan');
+            return redirect('/posyandu')->with('tambahSuccess', 'Data berhasil ditambahkan');
         } else {
             return back()->with('tambahError', 'Data gagal ditambahkan');
         }
@@ -415,38 +425,6 @@ class DataMasController extends Controller
         return view('admin/master/balita', ['kecamatan'=>$kecamatan, 'kelurahan'=>$kelurahan, 'posyandu'=>$posyandu, 'balita'=>$balita->get(), 'status'=>$status, 'statusKec'=>$statusKec, 'statusKel'=>$statusKel, 'statusPos'=>$statusPos]);
     }
 
-    public function editBalita(Request $request){
-        $posyandu = Posyandu::all();
-        $balita = Balita::where('ID_BALITA',$request->id)->first();
-        return view('admin/master/edit/balita', ['posyandu'=>$posyandu, 'balita'=>$balita]);
-    }
-
-    public function simpanBalita(Request $request){
-        $request->validate([
-            'id_posyandu' => 'required',
-            'nama_balita' => 'required|max:120',
-            'nik_orang_tua' => 'required|min:16|max:16|numeric',
-            'nama_orang_tua' => 'required|max:120',
-            'tgl_lahir_balita' => 'required',
-            'jenis_kelamin_balita' => 'required',
-            'status' => 'required',
-        ]);
-        $balita = Balita::where('ID_BALITA',$request->id);
-        if($balita->update([
-            'ID_POSYANDU'=>$request->id_posyandu,
-            'NAMA_BALITA'=>$request->nama_balita,
-            'NIK_ORANG_TUA'=>$request->nik_orang_tua,
-            'NAMA_ORANG_TUA'=>$request->nama_orang_tua,
-            'TGL_LAHIR_BALITA'=>$request->tgl_lahir_balita,
-            'JENIS_KELAMIN_BALITA'=>$request->jenis_kelamin_balita,
-            'STATUS'=>$request->status
-            ])){
-            return redirect('/balita')->with('updateSuccess', 'Data berhasil dirubah');
-        } else {
-            return back()->with('updateError', 'Data gagal dirubah');
-        }
-    }
-
     public function hapusBalita(Request $request){
         //return $request;
         $balita = Balita::where('ID_BALITA',$request->id);
@@ -488,13 +466,13 @@ class DataMasController extends Controller
     }
 
     public function tambahUser(){
-        $role = Role::all();
-        return view('admin/master/tambah/user', ['role'=>$role]);
+        $posyandu = Posyandu::all();
+        return view('admin/master/tambah/user', ['posyandu'=>$posyandu]);
     }
 
     public function dataUser(Request $request){
         $request->validate([
-            'id_role' => 'required',
+            'id_posyandu' => 'required',
             'username' => 'required|unique:users|min:3|max:20',
             'nama' => 'required',
             'password' => 'required',
@@ -504,12 +482,13 @@ class DataMasController extends Controller
         $user = new User;
         $user->USERNAME = $request->username;
         $user->NAMA = $request->nama;
+        $user->ID_POSYANDU = $request->id_posyandu;
         $user->PASSWORD = $request->password;
         if($user->save()){
             $userFound = User::where('username',$user->USERNAME)->first();
             $userRole = new UserRole;
             $userRole->ID_USER = $userFound->id;
-            $userRole->ID_ROLE = $request->id_role;
+            $userRole->ID_ROLE = 2;
             if ($userRole->save()){
                 return redirect('/user')->with('success', 'Berhasil registrasi, silahkan login!');
             } else

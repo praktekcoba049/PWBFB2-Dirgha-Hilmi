@@ -41,6 +41,15 @@
                 <div class="sidebar-brand-text mx-3">ASIPS</div>
             </a>
 
+            <h6 class="mx-3 text-light text-center"><?php
+                use Illuminate\Support\Facades\Auth;
+                use App\Models\Masters\Posyandu;
+
+                $posyandu = Posyandu::where('ID_POSYANDU', Auth::user()->ID_POSYANDU)->first();
+                ?>
+                Posyandu {{ $posyandu->NAMA_POSYANDU }}
+            </h6>
+
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 

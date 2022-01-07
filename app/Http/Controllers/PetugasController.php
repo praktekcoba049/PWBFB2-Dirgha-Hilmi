@@ -20,7 +20,7 @@ Use Illuminate\Support\Carbon;
 class PetugasController extends Controller
 {
     public function index($user){
-        $balita = Balita::all();
+        $balita = Balita::where('ID_POSYANDU', Auth::user()->ID_POSYANDU)->get();
         return view('petugas/balita', ['balita'=>$balita]);
     }
 
@@ -29,64 +29,9 @@ class PetugasController extends Controller
     }
     
     public function balita(){
-        $kecamatan = Kecamatan::all();
-        $kelurahan = Kelurahan::all();
-        $posyandu = Posyandu::all();
-        $balita = Balita::latest();
-        $status = 0;
-        $statusKec = 0;
-        $statusKel = 0;
-        $statusPos = 0;
-        if(request('kecamatan')){
-            $status = 1;
-            $statusKec = 1;
-            $statusKel = 0;
-            $statusPos = 0;
-            $kecamatanFound = Kecamatan::where('KECAMATAN', request('kecamatan'))->first();
-            $kelurahanFound = Kelurahan::where('ID_KECAMATAN', $kecamatanFound->ID_KECAMATAN)->get('ID_KELURAHAN');
-            if($kelurahanFound->count()!=0){
-                $a=0;
-                foreach ($kelurahanFound as $item){
-                $array[$a] = $item->ID_KELURAHAN;
-                $a++;
-                }
-                $posyanduFound = Posyandu::whereIn('ID_KELURAHAN', $array)->get('ID_POSYANDU');
-                if($posyanduFound->count()!=0){
-                    $a=0;
-                    foreach ($posyanduFound as $item){
-                    $array[$a] = $item->ID_POSYANDU;
-                    $a++;
-                    }
-                    $balita = Balita::whereIn('ID_POSYANDU', $array);
-                }
-            }
-        } else
-        if(request('kelurahan')){
-            $status = 1;
-            $statusKel = 1;
-            $statusPos = 0;
-            $statusKec = 0;
-            $kelurahanFound = Kelurahan::where('KELURAHAN', request('kelurahan'))->first();
-            $posyanduFound = Posyandu::where('ID_KELURAHAN', $kelurahanFound->ID_KELURAHAN)->get('ID_POSYANDU');
-            if($posyanduFound->count()!=0){
-                $a=0;
-                foreach ($posyanduFound as $item){
-                $array[$a] = $item->ID_POSYANDU;
-                $a++;
-                }
-                $balita = Balita::whereIn('ID_POSYANDU', $array);
-            }
-        } else
-        if(request('posyandu')){
-            $status = 1;
-            $statusPos = 1;
-            $statusKec = 0;
-            $statusKel = 0;
-            $posyanduFound = Posyandu::where('NAMA_POSYANDU', request('posyandu'))->first();
-            $balita = Balita::where('ID_POSYANDU', $posyanduFound->ID_POSYANDU);
-        }
+        $balita = Balita::where('ID_POSYANDU', Auth::user()->ID_POSYANDU)->get();
         
-        return view('petugas/balita', ['kecamatan'=>$kecamatan, 'kelurahan'=>$kelurahan, 'posyandu'=>$posyandu, 'balita'=>$balita->get(), 'statusKec'=>$statusKec, 'statusKel'=>$statusKel, 'statusPos'=>$statusPos]);
+        return view('petugas/balita', ['balita'=>$balita]);
     }
 
     public function tambahBalita(){
@@ -96,7 +41,6 @@ class PetugasController extends Controller
 
     public function simpanBalita(Request $request){
         $request->validate([
-            'id_posyandu' => 'required',
             'balita' => 'required|max:100',
             'NIK_orangtua' => 'required|min:16|max:16',
             'orangtua' => 'required|max:100',
@@ -105,7 +49,7 @@ class PetugasController extends Controller
         ]);
 
         $balita = new Balita;
-        $balita->ID_POSYANDU = $request->id_posyandu;
+        $balita->ID_POSYANDU = Auth::user()->ID_POSYANDU;
         $balita->NAMA_BALITA = $request->balita;
         $balita->NIK_ORANG_TUA = $request->NIK_orangtua;
         $balita->NAMA_ORANG_TUA = $request->orangtua;
@@ -116,6 +60,7 @@ class PetugasController extends Controller
         $user = new User;
         $user->USERNAME = $request->NIK_orangtua;
         $user->NAMA = $request->orangtua;
+        $user->ID_POSYANDU = Auth::user()->ID_POSYANDU;
         $pass = $request->NIK_orangtua;
         $pass = Hash::make($pass);
         $user->PASSWORD = $pass;
@@ -140,92 +85,57 @@ class PetugasController extends Controller
         }
     }
 
+    public function editBalita(Request $request){
+        $balita = Balita::where('ID_BALITA',$request->id)->first();
+        return view('petugas/edit/balita', ['balita'=>$balita]);
+    }
+
+    public function updateBalita(Request $request){
+        $request->validate([
+            'balita' => 'required|max:100',
+            'NIK_orangtua' => 'required|min:16|max:16',
+            'orangtua' => 'required|max:100',
+            'tgl_lahir' => 'required',
+            'jk' => 'required',
+        ]);
+
+        $balita = Balita::where('ID_BALITA',$request->id);
+        $user = User::where('USERNAME',$request->NIK_orangtua);
+        if($balita->update([
+            'ID_POSYANDU'=>Auth::user()->ID_POSYANDU,
+            'NAMA_BALITA'=>$request->balita,
+            'NIK_ORANG_TUA'=>$request->NIK_orangtua,
+            'NAMA_ORANG_TUA'=>$request->orangtua,
+            'TGL_LAHIR_BALITA'=>$request->tgl_lahir,
+            'JENIS_KELAMIN_BALITA'=>$request->jk,
+            'STATUS'=>$request->status
+            ])
+            &&
+            $user->update([
+                'USERNAME'=>$request->NIK_orangtua,
+                'NAMA'=>$request->orangtua,
+                'ID_POSYANDU'=>Auth::user()->ID_POSYANDU
+            ])){
+                return redirect('/petugas')->with('success', 'Data berhasil ditambahkan');
+            }
+        return back()->with('updateError', 'Data gagal ditambahkan');
+    }
+
     public function hposyandu(){
-        $kecamatan = Kecamatan::all();
-        $kelurahan = Kelurahan::all();
-        $posyandu = Posyandu::all();
-        $balita = Balita::all();
-        $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA');
-        $status = 0;
-        $statusKec = 0;
-        $statusKel = 0;
-        $statusPos = 0;
-        if(request('kecamatan')){
-            $status = 1;
-            $statusKec = 1;
-            $statusKel = 0;
-            $statusPos = 0;
-            $kecamatanFound = Kecamatan::where('KECAMATAN', request('kecamatan'))->first();
-            $kelurahanFound = Kelurahan::where('ID_KECAMATAN', $kecamatanFound->ID_KECAMATAN)->get('ID_KELURAHAN');
-            if($kelurahanFound->count()!=0){
-                $a=0;
-                foreach ($kelurahanFound as $item){
-                $array[$a] = $item->ID_KELURAHAN;
-                $a++;
-                }
-                $posyanduFound = Posyandu::whereIn('ID_KELURAHAN', $array)->get('ID_POSYANDU');
-                if($posyanduFound->count()!=0){
-                    $a=0;
-                    foreach ($posyanduFound as $item){
-                    $array[$a] = $item->ID_POSYANDU;
-                    $a++;
-                    }
-                    $balita = Balita::whereIn('ID_POSYANDU', $array)->get('ID_BALITA');
-                    if($balita->count()!=0){
-                        $a=0;
-                        foreach ($balita as $item){
-                        $array[$a] = $item->ID_BALITA;
-                        $a++;
-                        }
-                        $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA')->whereIn('history_posyandu.ID_BALITA', $array);
-                    }
-                }
-            }
-        } else
-        if(request('kelurahan')){
-            $status = 1;
-            $statusKel = 1;
-            $statusPos = 0;
-            $statusKec = 0;
-            $kelurahanFound = Kelurahan::where('KELURAHAN', request('kelurahan'))->first();
-            $posyanduFound = Posyandu::where('ID_KELURAHAN', $kelurahanFound->ID_KELURAHAN)->get('ID_POSYANDU');
-            if($posyanduFound->count()!=0){
-                $a=0;
-                foreach ($posyanduFound as $item){
-                $array[$a] = $item->ID_POSYANDU;
-                $a++;
-                }
-                $balita = Balita::whereIn('ID_POSYANDU', $array)->get('ID_BALITA');
-                if($balita->count()!=0){
-                    $a=0;
-                    foreach ($balita as $item){
-                    $array[$a] = $item->ID_BALITA;
-                    $a++;
-                    }
-                    $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA')->whereIn('history_posyandu.ID_BALITA', $array);
-                }
-            }
-        } else
-        if(request('posyandu')){
-            $status = 1;
-            $statusPos = 1;
-            $statusKec = 0;
-            $statusKel = 0;
-            $posyanduFound = Posyandu::where('NAMA_POSYANDU', request('posyandu'))->first();
-            $balita = Balita::where('ID_POSYANDU', $posyanduFound->ID_POSYANDU)->get('ID_BALITA');
-            $a=0;
-            foreach ($balita as $item){
-            $array[$a] = $item->ID_BALITA;
-            $a++;
-            }
-            $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA')->whereIn('history_posyandu.ID_BALITA', $array);
+        $balita = Balita::where('ID_POSYANDU', Auth::user()->ID_POSYANDU)->get('ID_BALITA');
+        $a=0;
+        foreach ($balita as $item){
+        $array[$a] = $item->ID_BALITA;
+        $a++;
         }
+        $hpos = Histori::join('balita', 'balita.ID_BALITA', '=', 'history_posyandu.ID_BALITA')->whereIn('history_posyandu.ID_BALITA', $array);
         
-        return view('petugas/hposyandu', ['kecamatan'=>$kecamatan, 'kelurahan'=>$kelurahan, 'posyandu'=>$posyandu, 'balita'=>$balita,'hpos'=>$hpos->get(), 'statusKec'=>$statusKec, 'statusKel'=>$statusKel, 'statusPos'=>$statusPos]);
+        
+        return view('petugas/hposyandu', ['balita'=>$balita,'hpos'=>$hpos->get()]);
     }
 
     public function tambahHpos(){
-        $balita = Balita::all();
+        $balita = Balita::where('ID_POSYANDU', Auth::user()->ID_POSYANDU);
         return view('petugas/aplikasi/hposyandu', ['balita'=>$balita]);
     }
 
@@ -294,7 +204,7 @@ class PetugasController extends Controller
         $array[$a] = $item->ID_USER;
         $a++;
         }
-        $users = User::whereIn('id', $array)->get();
+        $users = User::whereIn('id', $array)->where('ID_POSYANDU', Auth::user()->ID_POSYANDU)->get();
         //return view('master/posyandu');
         return view('petugas/user', ['users'=>$users]);
     }

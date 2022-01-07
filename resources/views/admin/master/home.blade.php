@@ -58,4 +58,48 @@
 
     </div>
 
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="col-sm-6 py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Data Balita Stunting Tiap Posyandu</h6>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Posyandu</th>
+                            <th>Alamat</th>
+                            <th>Jumlah Stunting</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Posyandu</th>
+                            <th>Alamat</th>
+                            <th>Jumlah Stunting</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach($posyandu as $item)
+                            <tr>
+                                <td>{{ $item->NAMA_POSYANDU }}</td>
+                                <td>{{ $item->ALAMAT_POSYANDU }}</td>
+                                <td>{{ $balita->where('STATUS', 2)->where('ID_POSYANDU',$item->ID_POSYANDU)->count() }}</td>
+                                <td>
+                                    <a href="/edit-kec" class="btn btn-primary tombol">Ubah</a>
+                                    <a href="#" class="btn btn-danger tombol" onclick="return confirm('Akan menghapus data');">Hapus</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 @endsection    

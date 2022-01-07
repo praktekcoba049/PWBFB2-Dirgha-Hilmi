@@ -37,7 +37,7 @@
                             </div>
                         @endif
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Tambah Data Balita!</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Tambah History Balita!</h1>
                         </div>
                         <form action="/petugas-hposyandu-simpan" method="post">
                             @csrf

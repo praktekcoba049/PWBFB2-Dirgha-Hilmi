@@ -136,6 +136,10 @@ Route::post('/petugas-balita-simpan', [PetugasController::class, 'simpanBalita']
 Route::get('/petugas-hposyandu-tambah', [PetugasController::class, 'tambahHpos'])->middleware('auth', 'petugas');
 Route::post('/petugas-hposyandu-simpan', [PetugasController::class, 'simpanHpos']);
 
+//Petugas Edit
+Route::post('/petugas-balita-edit', [PetugasController::class, 'editBalita'])->middleware('auth', 'petugas');
+Route::post('/petugas-balita-update', [PetugasController::class, 'updateBalita']);
+
 //Petugas Restore Data
 Route::get('/petugas-user-restore', [PetugasController::class, 'userRestore'])->middleware('auth', 'petugas');
 Route::post('/petugas-restore-user', [PetugasController::class, 'restoreUser']);

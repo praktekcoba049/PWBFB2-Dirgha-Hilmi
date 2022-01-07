@@ -1,12 +1,6 @@
 @extends('../admin/layouts/master')
 
 @section('container')
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">List Kecamatan</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables, please visit the <a target="_blank"
-            href="https://datatables.net">official DataTables documentation</a>.</p>
     
     <div>
         @if (session()->has('tambahSuccess'))
@@ -45,7 +39,7 @@
         <div class="card-header py-3">
             <div class="row">
                 <div class="col-sm-6 py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Data Kecamatan</h6>
                 </div>
                 <div class="col-sm-6 text-right">
                     <a href="/tambah-kec" class="btn btn-primary tombol">Tambah Data</a>

@@ -148,3 +148,5 @@ Route::post('/petugas-delete-permanent-user', [PetugasController::class, 'forceD
 // Orang Tua
 Route::get('/orangtua-balita', [OrangtuaController::class, 'index'])->middleware('auth', 'orangtua');
 Route::post('/orangtua-balita-history', [OrangtuaController::class, 'hpos'])->middleware('auth', 'orangtua');
+//orangtua print pdf
+Route::get('/pdf', [OrangtuaController::class, 'exportPDF']);

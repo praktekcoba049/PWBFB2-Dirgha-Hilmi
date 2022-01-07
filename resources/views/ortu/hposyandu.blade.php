@@ -18,16 +18,7 @@
         <th>Tanggal Lahir</th>
         <td>: {{ $balita->TGL_LAHIR_BALITA }}</td>
     </tr>
-    <tr>
-        <th>Status Saat Ini</th>
-        @if($item->STATUS==0)
-        <td>Normal</td>
-        @else @if($item->STATUS==1)
-        <td>Terindikasi Stunting</td>
-        @else 
-        <td>Stunting</td>
-        @endif
-    </tr>
+  
 </table>
 
 <!-- DataTales Example -->
@@ -64,6 +55,8 @@
                 </tbody>
                 
             </table>
+            <a href="/pdf" class="btn btn-danger" style="padding:10px; margin-bottom:10px;">CETAK KE-PDF</a>
+
         </div>
     </div>
 </div>

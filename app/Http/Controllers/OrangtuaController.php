@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Masters\Histori;
 use App\Models\Masters\Balita;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class OrangtuaController extends Controller
 {
@@ -56,4 +57,18 @@ class OrangtuaController extends Controller
             return view('ortu/home', ['hpos'=>$hpos, 'valueNIK'=>$valueNIK, 'status'=>$status]);
         }
     }
+    public function exportPDF() {
+       
+        $balitas = Balita::where('NIK_ORANG_TUA', Auth::user()->username)->get();
+        foreach ($balitas as $balita){
+        $balita->ID_BALITA;
+        }
+        $hpos = Histori::where('ID_BALITA', $balita->ID_BALITA)->get();
+
+        $pdf = PDF::loadView('ortu/hposyandu', ['hpos' => $hpos,'balita'=>$balita])->setOptions(['defaultFont' => 'sans-serif']);
+        
+        return $pdf->download('user.pdf');
+        
+      }
+    
 }
